@@ -1,0 +1,42 @@
+# name: CI/CD Pipeline
+
+# on: [push, pull_request]
+
+# jobs:
+  # backend-build:
+
+    # runs-on: ubuntu-latest
+
+    # steps:
+    
+# name: Checkout code
+    # uses: actions/checkout@v2
+
+    
+# name: Set up JDK 21
+    # uses: actions/setup-java@v1
+    # with:
+      # java-version: '21'
+
+    
+# name: Build backend with Maven
+    # run: |
+      # cd backend
+      # mvn clean package
+
+    
+# name: Build backend Docker image
+    # run: |
+      # cd backend
+      # docker build -t myapp-backend:latest .
+
+    
+# name: Push backend Docker image to Docker Hub
+    # if: github.event_name == 'push'
+    # env:
+      # DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      # DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    # run: |
+      # echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+      # docker tag myapp-backend:latest <your_dockerhub_username>/myapp-backend:latest
+      # docker push <your_dockerhub_username>/myapp-backend:latest
