@@ -1,5 +1,6 @@
 package com.example.restapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,5 +25,6 @@ public class LightingCategory {
     private String name;
 
     @OneToMany(mappedBy = "lightingCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Set<Lighting> lightings;
 }
