@@ -1,5 +1,7 @@
 package com.example.restapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,10 +47,12 @@ public class Product {
     private boolean deleted;
 
     @OneToOne(mappedBy = "product")
+    @JsonManagedReference
     private Lighting lighting;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
+    @JsonManagedReference
     private Supplier supplier;
 
 }

@@ -1,5 +1,7 @@
 package com.example.restapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +22,11 @@ public class Lighting {
     @OneToOne
     @MapsId
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 
     @ManyToOne
     @JoinColumn(name = "lighting_category_id")
+    @JsonManagedReference
     private LightingCategory lightingCategory;
 }
