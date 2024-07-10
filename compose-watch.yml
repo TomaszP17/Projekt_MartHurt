@@ -1,0 +1,10 @@
+services:
+  backend:
+    paths:
+      - ./backend/restapi/src
+    action: restart
+
+  frontend:
+    paths:
+      - ./frontend/marthurt-frontend
+    action: restart

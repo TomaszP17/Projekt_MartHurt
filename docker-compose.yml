@@ -1,5 +1,17 @@
 services:
-  app:
+  backend:
+    build:
+      context: ./backend/restapi
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./backend/restapi:/app
+      - /app/target
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    command: mvn spring-boot:run
+
+  frontend:
     build:
       context: ./frontend/marthurt-frontend
     ports:
@@ -9,3 +21,4 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+    command: npm run dev
