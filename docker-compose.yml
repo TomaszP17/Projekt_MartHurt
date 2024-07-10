@@ -1,24 +1,41 @@
+#bez volume
+
 services:
   backend:
     build:
       context: ./backend/restapi
     ports:
       - '8080:8080'
-    volumes:
-      - ./backend/restapi:/app
-      - /app/target
     environment:
       - SPRING_PROFILES_ACTIVE=dev
     command: mvn spring-boot:run
+    develop:
+      watch:
+        - action: sync
+          path: ./backend/restapi
+          target: /app
+          ignore:
+            - target/
+            - .mvn/
+            - mvnw
+            - mvnw.cmd
+            - pom.xml
 
   frontend:
     build:
       context: ./frontend/marthurt-frontend
     ports:
       - '3000:3000'
-    volumes:
-      - ./frontend/marthurt-frontend:/app
-      - /app/node_modules
     environment:
       - NODE_ENV=development
     command: npm run dev
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/marthurt-frontend
+          target: /app
+          ignore:
+            - node_modules/
+        - action: sync+restart
+          path: ./frontend/marthurt-frontend/nginx.conf
+          target: /etc/nginx/conf.d/default.conf
