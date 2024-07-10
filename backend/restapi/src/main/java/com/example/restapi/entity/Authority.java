@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "authorities")
 @NoArgsConstructor
@@ -15,16 +17,17 @@ import lombok.Setter;
 public class Authority {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
-    @Column(name = "username", nullable = false)
-    private String username;
-
-    @Column(name = "authority", nullable = false)
+    @Column(name = "authority", length = 50, nullable = false)
     private String authority;
 
-    @ManyToOne
-    @JoinColumn(name = "username", insertable = false, updatable = false)
-    private User user;
+    @OneToMany(mappedBy = "authority", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<MyUserAuthority> userAuthorities;
+
+    public String getAuthorityName() {
+        return authority;
+    }
 }
