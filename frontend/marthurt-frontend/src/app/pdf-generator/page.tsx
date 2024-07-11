@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Select from "../components/select";
-import { Option } from "../types";
 import Form from "../components/form";
+import { Option, Quote } from "../types";
 import Navbar from "../components/navbar";
 
 const options: Option[] = [
@@ -13,11 +13,35 @@ const options: Option[] = [
   { value: "MH-232", label: "MH-232" },
 ];
 
-export default function page() {
+export default function Page() {
   const [selectedValue, setSelectedValue] = useState<Option | null>(null);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
 
   const handleSelectChange = (value: Option) => {
     setSelectedValue(value);
+  };
+
+  const handleDuplicateCheck = (newQuote: Quote) => {
+    const isDuplicate = quotes.some(
+      (quote) =>
+        quote.clientEmail === newQuote.clientEmail ||
+        quote.clientName === newQuote.clientName ||
+        quote.items.some((item) =>
+          newQuote.items.some((newItem) => newItem.name === item.name)
+        )
+    );
+
+    if (isDuplicate) {
+      alert("DUBEL");
+      const existingQuote = quotes.find(
+        (quote) => quote.clientEmail === newQuote.clientEmail
+      );
+      if (existingQuote) {
+        console.log("Redirect to existing quote:", existingQuote);
+      }
+    } else {
+      setQuotes([...quotes, newQuote]);
+    }
   };
 
   return (
@@ -27,7 +51,7 @@ export default function page() {
         <Select
           options={options}
           onChange={handleSelectChange}
-          placeholder="Select an option"
+          placeholder="Wybierz Sklep"
         />
         <Form selectedValue={selectedValue} />
       </div>
