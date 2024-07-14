@@ -1,6 +1,6 @@
 package com.example.restapi.controller;
 
-import com.example.restapi.dto.PdfRequest;
+import com.example.restapi.dto.request.PdfRequest;
 import com.example.restapi.helpers.IPDFGenerator;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;

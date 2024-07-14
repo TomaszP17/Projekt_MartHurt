@@ -1,4 +1,4 @@
-package com.example.restapi.dto;
+package com.example.restapi.dto.request;
 
 public class PdfRequest {
     private String text;
