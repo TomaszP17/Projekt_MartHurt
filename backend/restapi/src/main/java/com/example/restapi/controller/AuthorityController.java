@@ -60,4 +60,14 @@ public class AuthorityController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/{authorityId}")
+    public ResponseEntity<Void> deleteAuthority(@PathVariable int authorityId) {
+        try {
+            authorityService.deleteAuthority(authorityId);
+            return ResponseEntity.noContent().build();
+        } catch (AuthorityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
