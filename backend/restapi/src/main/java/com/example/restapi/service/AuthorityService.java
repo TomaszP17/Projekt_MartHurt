@@ -12,4 +12,6 @@ public interface AuthorityService {
     AuthorityResponseDTO addAuthority(AuthorityRequestDTO requestDTO);
 
     AuthorityResponseDTO getAuthorityById(int authorityId) throws AuthorityNotFoundException;
+
+    AuthorityResponseDTO updateAuthority(int authorityId);
 }

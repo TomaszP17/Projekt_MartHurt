@@ -50,4 +50,9 @@ public class AuthorityController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @PutMapping("/{authorityId}")
+    public ResponseEntity<AuthorityResponseDTO> updateAuthority(@PathVariable int authorityId){
+
+    }
 }
