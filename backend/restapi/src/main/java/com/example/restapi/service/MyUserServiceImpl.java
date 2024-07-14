@@ -5,15 +5,14 @@ import com.example.restapi.dto.response.UserResponseDTO;
 import com.example.restapi.entity.Authority;
 import com.example.restapi.entity.MyUser;
 import com.example.restapi.entity.MyUserAuthority;
+import com.example.restapi.exceptions.FoundMoreThanOneUserException;
 import com.example.restapi.repository.AuthorityRepository;
 import com.example.restapi.repository.MyUserAuthorityRepository;
 import com.example.restapi.repository.MyUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.User;
@@ -32,7 +31,11 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
     private final MyUserAuthorityRepository myUserAuthorityRepository;
     private final AuthorityRepository authorityRepository;
 
-    public MyUserServiceImpl(PasswordEncoder passwordEncoder,MyUserRepository myUserRepository, MyUserAuthorityRepository myUserAuthorityRepository, AuthorityRepository authorityRepository) {
+    public MyUserServiceImpl(PasswordEncoder passwordEncoder,
+                             MyUserRepository myUserRepository,
+                             MyUserAuthorityRepository myUserAuthorityRepository,
+                             AuthorityRepository authorityRepository
+    ) {
         this.passwordEncoder = passwordEncoder;
         this.myUserRepository = myUserRepository;
         this.myUserAuthorityRepository = myUserAuthorityRepository;
@@ -52,6 +55,21 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
                                 .collect(Collectors.toSet())))
                 .collect(Collectors.toList());
 
+    }
+
+    public UserResponseDTO getUser(int userId) {
+        Optional<MyUser> userOptional = myUserRepository.findById(userId);
+        MyUser user = userOptional.orElseThrow(() -> new UsernameNotFoundException("User with id " + userId + " not found"));
+
+        return new UserResponseDTO(
+                user.getUsername(),
+                user.getPassword(),
+                user.isEnabled(),
+                user.getUserAuthorities()
+                        .stream()
+                        .map(auth -> auth.getAuthority().getAuthorityName())
+                        .collect(Collectors.toSet())
+        );
     }
 
     public UserResponseDTO createUser(UserRequestDTO userDTO) {
@@ -84,6 +102,33 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
                 authorities.stream().map(Authority::getAuthority).collect(Collectors.toSet()));
     }
 
+    @Transactional
+    public void deleteUser(int userId) throws FoundMoreThanOneUserException {
+        // Get dbResult
+        Optional<MyUser> dbResult = myUserRepository.findById(userId);
+
+        if (dbResult.isEmpty()) {
+            throw new UsernameNotFoundException("User with that id is not found");
+        }
+
+        MyUser user = dbResult.get();
+
+        // Ensure there is only one user found
+        long numberOfUsersFound = dbResult.stream().count();
+        if (numberOfUsersFound != 1) {
+            throw new FoundMoreThanOneUserException("In database are more than 1 user with that Id");
+        }
+
+        // Delete related authorities
+        Set<MyUserAuthority> userAuthorities = user.getUserAuthorities();
+        if (userAuthorities != null && !userAuthorities.isEmpty()) {
+            userAuthorities.forEach(auth -> myUserAuthorityRepository.delete(auth));
+        }
+
+        // Delete user
+        myUserRepository.delete(user);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<MyUser> user = myUserRepository.findByUsername(username);
@@ -108,6 +153,4 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
                 .map(e -> e.getAuthority().getAuthorityName())
                 .toArray(String[]::new);
     }
-
-    //here will be
 }
