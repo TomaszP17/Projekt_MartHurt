@@ -52,7 +52,12 @@ public class AuthorityController {
     }
 
     @PutMapping("/{authorityId}")
-    public ResponseEntity<AuthorityResponseDTO> updateAuthority(@PathVariable int authorityId){
-
+    public ResponseEntity<?> updateAuthority(@PathVariable int authorityId,
+                                                                @RequestBody AuthorityRequestDTO requestDTO){
+        try{
+            return ResponseEntity.status(HttpStatus.CREATED).body(authorityService.updateAuthority(authorityId, requestDTO));
+        } catch (AuthorityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
