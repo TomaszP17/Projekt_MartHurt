@@ -38,7 +38,7 @@ public class AuthorityServiceImpl implements AuthorityService{
     public AuthorityResponseDTO getAuthorityById(int authorityId) throws AuthorityNotFoundException {
         Optional<Authority> authorityOptional = authorityRepository.findById(authorityId);
 
-        if(authorityOptional == null || authorityOptional.isEmpty()){
+        if(authorityOptional.isEmpty()){
             throw new AuthorityNotFoundException("Authority with id: " + authorityId + " does not exists");
         }
 
@@ -94,5 +94,10 @@ public class AuthorityServiceImpl implements AuthorityService{
                             .collect(Collectors.toSet())
             );
         }
+    }
+
+    @Override
+    public AuthorityResponseDTO updateAuthority(int authorityId) {
+        
     }
 }
