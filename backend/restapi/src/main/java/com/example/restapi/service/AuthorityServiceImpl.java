@@ -5,6 +5,7 @@ import com.example.restapi.dto.response.AuthorityResponseDTO;
 import com.example.restapi.entity.Authority;
 import com.example.restapi.exceptions.AuthorityNotFoundException;
 import com.example.restapi.repository.AuthorityRepository;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,9 +44,9 @@ public class AuthorityServiceImpl implements AuthorityService{
         }
 
         Authority authority = authorityOptional.get();
-        AuthorityResponseDTO authorityResponseDTO;
+        //AuthorityResponseDTO authorityResponseDTO;
 
-        if (authority.getUserAuthorities() == null || authority.getUserAuthorities().isEmpty()) {
+        /*if (authority.getUserAuthorities() == null || authority.getUserAuthorities().isEmpty()) {
             authorityResponseDTO = new AuthorityResponseDTO(
                     authority.getId(),
                     authority.getAuthorityName()
@@ -59,9 +60,9 @@ public class AuthorityServiceImpl implements AuthorityService{
                             .map(userAuthority -> userAuthority.getUser().getId())
                             .collect(Collectors.toSet())
             );
-        }
+        }*/
 
-        return authorityResponseDTO;
+        return getAuthorityResponseDTO(authority);
     }
 
     @Override
@@ -79,25 +80,40 @@ public class AuthorityServiceImpl implements AuthorityService{
 
         Authority savedAuthority = authorityRepository.save(authority);
 
-        if (savedAuthority.getUserAuthorities() == null || savedAuthority.getUserAuthorities().isEmpty()) {
+        return getAuthorityResponseDTO(savedAuthority);
+    }
+
+    @Override
+    public AuthorityResponseDTO updateAuthority(int authorityId,
+                                                AuthorityRequestDTO requestDTO) throws AuthorityNotFoundException {
+        Authority updatedAuthority = authorityRepository
+                .findById(authorityId)
+                .orElseThrow(
+                () -> new AuthorityNotFoundException("Authority with that id: " + authorityId + "does not exists"));
+
+        updatedAuthority.setAuthority(requestDTO.getAuthorityName());
+        //set this value to new authority variable
+        authorityRepository.save(updatedAuthority);
+
+        return getAuthorityResponseDTO(updatedAuthority);
+    }
+
+    @NotNull
+    private AuthorityResponseDTO getAuthorityResponseDTO(Authority updatedAuthority) {
+        if (updatedAuthority.getUserAuthorities() == null || updatedAuthority.getUserAuthorities().isEmpty()) {
             return new AuthorityResponseDTO(
-                    savedAuthority.getId(),
-                    savedAuthority.getAuthorityName()
+                    updatedAuthority.getId(),
+                    updatedAuthority.getAuthorityName()
             );
         } else {
             return new AuthorityResponseDTO(
-                    savedAuthority.getId(),
-                    savedAuthority.getAuthorityName(),
-                    savedAuthority.getUserAuthorities()
+                    updatedAuthority.getId(),
+                    updatedAuthority.getAuthorityName(),
+                    updatedAuthority.getUserAuthorities()
                             .stream()
                             .map(myUserAuthority -> myUserAuthority.getUser().getId())
                             .collect(Collectors.toSet())
             );
         }
-    }
-
-    @Override
-    public AuthorityResponseDTO updateAuthority(int authorityId) {
-        
     }
 }
