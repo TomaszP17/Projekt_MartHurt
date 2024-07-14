@@ -9,7 +9,6 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,31 +36,7 @@ public class AuthorityServiceImpl implements AuthorityService{
 
     @Override
     public AuthorityResponseDTO getAuthorityById(int authorityId) throws AuthorityNotFoundException {
-        Optional<Authority> authorityOptional = authorityRepository.findById(authorityId);
-
-        if(authorityOptional.isEmpty()){
-            throw new AuthorityNotFoundException("Authority with id: " + authorityId + " does not exists");
-        }
-
-        Authority authority = authorityOptional.get();
-        //AuthorityResponseDTO authorityResponseDTO;
-
-        /*if (authority.getUserAuthorities() == null || authority.getUserAuthorities().isEmpty()) {
-            authorityResponseDTO = new AuthorityResponseDTO(
-                    authority.getId(),
-                    authority.getAuthorityName()
-            );
-        } else {
-            authorityResponseDTO = new AuthorityResponseDTO(
-                    authority.getId(),
-                    authority.getAuthorityName(),
-                    authority.getUserAuthorities()
-                            .stream()
-                            .map(userAuthority -> userAuthority.getUser().getId())
-                            .collect(Collectors.toSet())
-            );
-        }*/
-
+        Authority authority = findAuthorityByIdOrThrow(authorityId);
         return getAuthorityResponseDTO(authority);
     }
 
@@ -86,16 +61,19 @@ public class AuthorityServiceImpl implements AuthorityService{
     @Override
     public AuthorityResponseDTO updateAuthority(int authorityId,
                                                 AuthorityRequestDTO requestDTO) throws AuthorityNotFoundException {
-        Authority updatedAuthority = authorityRepository
-                .findById(authorityId)
-                .orElseThrow(
-                () -> new AuthorityNotFoundException("Authority with that id: " + authorityId + "does not exists"));
+
+        Authority updatedAuthority = findAuthorityByIdOrThrow(authorityId);
 
         updatedAuthority.setAuthority(requestDTO.getAuthorityName());
-        //set this value to new authority variable
         authorityRepository.save(updatedAuthority);
 
         return getAuthorityResponseDTO(updatedAuthority);
+    }
+
+    @Override
+    public void deleteAuthority(int authorityId) throws AuthorityNotFoundException {
+        Authority authority = findAuthorityByIdOrThrow(authorityId);
+        authorityRepository.delete(authority);
     }
 
     @NotNull
@@ -115,5 +93,12 @@ public class AuthorityServiceImpl implements AuthorityService{
                             .collect(Collectors.toSet())
             );
         }
+    }
+
+    private Authority findAuthorityByIdOrThrow(int authorityId) throws AuthorityNotFoundException {
+        return authorityRepository
+                .findById(authorityId)
+                .orElseThrow(
+                        () -> new AuthorityNotFoundException("Authority with id: " + authorityId + " does not exists"));
     }
 }
