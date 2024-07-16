@@ -1,5 +1,10 @@
 import React from "react";
+import ProductsGrid from "./components/productsGrid";
 
 export default function Home() {
-  return <div>home</div>;
+  return (
+    <main>
+      <ProductsGrid />
+    </main>
+  );
 }

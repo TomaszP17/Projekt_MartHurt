@@ -1,35 +1,81 @@
-import React, { useEffect, useState } from "react";
-import { Option, FormData, Quote } from "../types";
+import React, { useEffect, useState } from 'react'
+import { Option, FormData, Quote } from '../types'
 
 interface FormProps {
-  selectedValue: Option | null;
+  selectedValue: Option | null
 }
 
 const Form: React.FC<FormProps> = ({ selectedValue }) => {
-  const [buttonClicked, setButtonClicked] = useState(false);
-  const [formData, setFormData] = useState<FormData[]>([]);
+  const [buttonClicked, setButtonClicked] = useState(false)
+  const [formData, setFormData] = useState<FormData[]>([])
   const [quoteInfo, setQuoteInfo] = useState({
-    clientName: "",
-    clientPhone: "",
-    clientEmail: "",
-    deliveryDate: "",
-    additionalInfo: "",
-  });
+    clientName: '',
+    clientPhone: '',
+    clientEmail: '',
+    deliveryDate: '',
+    additionalInfo: '',
+  })
+
+  // State to manage product descriptions
+  const [productDescriptions, setProductDescriptions] = useState<string[]>([]);
 
   useEffect(() => {
-    handleAddElement();
+    const cartData: FormData[] = [
+      {
+        name: 'Produkt 1',
+        photo: null,
+        description: 'opis',
+        bruttoPrice: 100,
+        bruttoPriceWithDiscount: 90,
+        quantity: 2,
+        totalValueAfterDiscount: 180,
+      },
+      {
+        name: 'Produkt 2',
+        photo: null,
+        description: 'opis',
+        bruttoPrice: 200,
+        bruttoPriceWithDiscount: 180,
+        quantity: 1,
+        totalValueAfterDiscount: 180,
+      },
+    ];
+    setFormData(cartData);
+
+    // Initialize product descriptions with default values
+    const initialDescriptions = cartData.map(item => item.description);
+    setProductDescriptions(initialDescriptions);
   }, []);
 
-  const handleAddElement = () => {
-    const newElement: FormData = {
-      name: "",
-      bruttoPrice: 0,
-      bruttoPriceWithDiscount: 0,
-      quantity: 0,
-      totalValueAfterDiscount: 0,
-    };
-    setFormData([...formData, newElement]);
+  const handleDescriptionChange = (index: number, value: string) => {
+    const updatedDescriptions = [...productDescriptions];
+    updatedDescriptions[index] = value;
+    setProductDescriptions(updatedDescriptions);
+
+    // Update formData with new description
+    const updatedFormData = [...formData];
+    updatedFormData[index].description = value;
+    setFormData(updatedFormData);
   };
+
+  const handleQuoteInfoChange = (key: keyof typeof quoteInfo, value: string) => {
+    setQuoteInfo(prevInfo => ({
+      ...prevInfo,
+      [key]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    const quote: Quote = {
+      store: selectedValue?.value || '',
+      date: new Date().toLocaleString(),
+      salesPerson: 'KG206', // Hardcoded for example, you can make this dynamic
+      items: formData,
+      ...quoteInfo,
+    };
+    handleDuplicateCheck(quote);
+  };
+
 
   const handleRemoveElement = (index: number) => {
     setFormData((prevData) => prevData.filter((_, i) => i !== index));
@@ -121,19 +167,12 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </td>
-              <td className="border border-gray-300 p-2 text-center">
+              <td className='border border-gray-300 p-2 text-center'>
                 <input
-                  type="number"
-                  min={1}
-                  value={item.bruttoPrice}
-                  onChange={(e) =>
-                    handleChange(
-                      index,
-                      "bruttoPrice",
-                      parseFloat(e.target.value)
-                    )
-                  }
-                  className="w-full p-2 border border-gray-300 rounded"
+                  type='text'
+                  value={productDescriptions[index]}
+                  onChange={(e) => handleDescriptionChange(index, e.target.value)}
+                  className='w-full p-2 border border-gray-300 rounded'
                 />
               </td>
               <td className="border border-gray-300 p-2 text-center">
@@ -180,9 +219,8 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
               <div className="flex gap-x-3">
                 <textarea
                   disabled={buttonClicked}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  placeholder="Dodaj uwagi tutaj..."
-                ></textarea>
+                  className='w-full p-2 border border-gray-300 rounded'
+                  placeholder='Dodaj uwagi tutaj...'></textarea>
                 <button
                   onClick={() => setButtonClicked(!buttonClicked)}
                   className={
@@ -214,12 +252,8 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
             <td className="border border-gray-300 p-2 text-right" colSpan={7}>
               Razem
             </td>
-            <td className="border border-gray-300 p-2 text-center">
-              {formData.reduce(
-                (total, item) =>
-                  total + item.bruttoPriceWithDiscount * item.quantity,
-                0
-              )}
+            <td className='border border-gray-300 p-2 text-center'>
+              {formData.reduce((total, item) => total + item.bruttoPriceWithDiscount * item.quantity, 0)}
             </td>
           </tr>
         </tfoot>
@@ -291,6 +325,6 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Form;
