@@ -19,6 +19,7 @@ export interface FormData {
   totalValueAfterDiscount: number;
 }
 
+
 export interface Quote {
   store: string;
   date: string;
@@ -29,4 +30,5 @@ export interface Quote {
   clientPhone: string;
   deliveryDate: string;
   additionalInfo: string;
+
 }

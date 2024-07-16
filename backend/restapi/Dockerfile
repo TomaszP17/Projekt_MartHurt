@@ -1,14 +1,23 @@
-# Użyj obrazu openjdk jako bazowego
-FROM openjdk:21-jdk-slim
+# Użyj obrazu Maven do budowania aplikacji i uruchamiania jej
+FROM maven:3.9.8-amazoncorretto-21
 
-# Ustawienie katalogu roboczego w kontenerze
+# Ustaw katalog roboczy
 WORKDIR /app
 
-# Kopiowanie pliku jar aplikacji do kontenera
-COPY target/*.jar app.jar
+# Kopiowanie plików pom.xml i instalacja zależności
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+COPY src ./src
 
-# Eksponowanie portu, na którym aplikacja nasłuchuje
+# Upewnij się, że mvnw ma odpowiednie uprawnienia
+RUN chmod +x mvnw
+
+# Buduj aplikację (opcjonalnie, aby zależności zostały pobrane)
+RUN mvn clean install -DskipTests
+
+# Eksponuj port na którym będzie działać aplikacja Spring Boot
 EXPOSE 8080
 
-# Polecenie uruchamiające aplikację
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Komenda do uruchomienia aplikacji
+CMD ["mvn", "spring-boot:run"]
