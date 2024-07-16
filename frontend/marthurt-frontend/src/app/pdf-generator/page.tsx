@@ -43,6 +43,8 @@ export default function Page() {
       setQuotes([...quotes, newQuote]);
     }
   };
+
+
   return (
     <>
       <Navbar />

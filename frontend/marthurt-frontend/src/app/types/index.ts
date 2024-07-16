@@ -18,17 +18,3 @@ export interface FormData {
   quantity: number;
   totalValueAfterDiscount: number;
 }
-
-
-export interface Quote {
-  store: string;
-  date: string;
-  salesPerson: string;
-  items: FormData[];
-  clientName: string;
-  clientEmail: string;
-  clientPhone: string;
-  deliveryDate: string;
-  additionalInfo: string;
-
-}
