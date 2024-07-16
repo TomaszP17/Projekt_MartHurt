@@ -1,6 +1,6 @@
 package com.example.restapi.dto.request;
 
-import com.example.restapi.entity.Product;
+import com.example.restapi.entity.products.Product;
 
 import java.io.File;
 import java.util.List;

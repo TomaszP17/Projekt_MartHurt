@@ -1,6 +1,6 @@
 package com.example.restapi.service;
 
-import com.example.restapi.entity.Product;
+import com.example.restapi.entity.products.Product;
 
 import java.util.List;
 import java.util.Optional;

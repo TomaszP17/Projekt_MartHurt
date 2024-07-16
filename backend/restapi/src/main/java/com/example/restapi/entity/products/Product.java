@@ -1,4 +1,4 @@
-package com.example.restapi.entity;
+package com.example.restapi.entity.products;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

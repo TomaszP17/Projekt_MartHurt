@@ -1,4 +1,4 @@
-package com.example.restapi.entity;
+package com.example.restapi.entity.products;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -8,24 +8,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Entity
-@Table(name = "supplier")
+@Table(name = "lighting")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Supplier {
+public class Lighting {
 
     @Id
-    @Column(name = "id")
-    private int id;
+    private String productId;
 
-    @Column(name = "name")
-    private String name;
-
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "product_id")
     @JsonBackReference
-    private Set<Product> products;
+    private Product product;
 }
