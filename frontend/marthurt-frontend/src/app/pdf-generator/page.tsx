@@ -13,7 +13,7 @@ const options: Option[] = [
   { value: "MH-232", label: "MH-232" },
 ];
 
-export default function page() {
+export default function Page() {
   const [selectedValue, setSelectedValue] = useState<Option | null>(null);
   const [quotes, setQuotes] = useState<Quote[]>([]);
 
@@ -43,6 +43,8 @@ export default function page() {
       setQuotes([...quotes, newQuote]);
     }
   };
+
+
   return (
     <>
       <Navbar />
