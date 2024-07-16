@@ -1,13 +1,11 @@
 package com.example.restapi.controller;
 
-import com.example.restapi.dto.ProductResponseDTO;
-import com.example.restapi.entity.Product;
+import com.example.restapi.entity.products.Product;
 import com.example.restapi.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")

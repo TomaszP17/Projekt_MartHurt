@@ -2,7 +2,7 @@ package com.example.restapi.service;
 
 import com.example.restapi.dto.request.AuthorityRequestDTO;
 import com.example.restapi.dto.response.AuthorityResponseDTO;
-import com.example.restapi.entity.Authority;
+import com.example.restapi.entity.users.Authority;
 import com.example.restapi.exceptions.AuthorityNotFoundException;
 import com.example.restapi.repository.AuthorityRepository;
 import org.antlr.v4.runtime.misc.NotNull;

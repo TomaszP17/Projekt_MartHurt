@@ -1,4 +1,4 @@
-package com.example.restapi.entity;
+package com.example.restapi.entity.users;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.Set;
 
 @Entity
-@Table(name = "authorities")
+@Table(name = "authority")
 @NoArgsConstructor
 @Getter
 @Setter

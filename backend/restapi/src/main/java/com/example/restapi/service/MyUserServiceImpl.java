@@ -2,9 +2,9 @@ package com.example.restapi.service;
 
 import com.example.restapi.dto.request.UserRequestDTO;
 import com.example.restapi.dto.response.UserResponseDTO;
-import com.example.restapi.entity.Authority;
-import com.example.restapi.entity.MyUser;
-import com.example.restapi.entity.MyUserAuthority;
+import com.example.restapi.entity.users.Authority;
+import com.example.restapi.entity.users.MyUser;
+import com.example.restapi.entity.users.MyUserAuthority;
 import com.example.restapi.exceptions.FoundMoreThanOneUserException;
 import com.example.restapi.repository.AuthorityRepository;
 import com.example.restapi.repository.MyUserAuthorityRepository;

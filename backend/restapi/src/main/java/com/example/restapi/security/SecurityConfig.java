@@ -32,8 +32,9 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/users/**").permitAll() // Allow all requests to /api/users without authentication
-                        .anyRequest().authenticated()
+                        /*.requestMatchers("/users/**").permitAll() // Allow all requests to /api/users without authentication
+                        .anyRequest().authenticated()*/
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
