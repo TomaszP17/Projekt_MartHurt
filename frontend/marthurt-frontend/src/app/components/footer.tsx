@@ -1,72 +1,120 @@
-import React from 'react';
+// jak cos to usunac i zmienic na svg jezeli ikonki beda zbyt dlugo sie ladowaly
+
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faInstagram,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
+
+const iconMap = {
+  faFacebook,
+  faInstagram,
+  faLinkedin,
+};
+
+const sectionsData = {
+  socialLinks: [
+    {
+      icon: "faFacebook",
+      href: "#",
+    },
+    {
+      icon: "faInstagram",
+      href: "#",
+    },
+    {
+      icon: "faLinkedin",
+      href: "#",
+    },
+  ],
+  sections: [
+    {
+      title: "Katalog",
+      links: [{ name: "Lampy", href: "#" }],
+    },
+    {
+      title: "O nas",
+      links: [
+        { name: "Our Experience", href: "#" },
+        { name: "News", href: "#" },
+        { name: "Certificates", href: "#" },
+        { name: "Careers", href: "#" },
+      ],
+    },
+    {
+      title: "Dla Kupujących",
+      links: [
+        { name: "Demo Room", href: "#" },
+        { name: "Leasing", href: "#" },
+        { name: "Articles", href: "#" },
+        { name: "Contacts", href: "#" },
+      ],
+    },
+    {
+      title: "Kontakt",
+      details: [
+        { label: "Nr Telefonu", value: "123-123-123" },
+        { label: "Email", value: "marthurt@gmail.com" },
+        {
+          label: "Adres",
+          value: "Ul. Bartycka 24/26 Paw 224 00-716 WARSZAWA",
+        },
+      ],
+    },
+  ],
+};
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-white py-8 mt-5">
       <div className="container mx-auto px-4 space-y-6 md:space-y-0 md:flex md:justify-between">
-        <div className="space-y-4 md:w-1/4">
-          <h2 className="text-xl font-bold">ProfPlotter</h2>
-          <p className="text-sm">EQUIPMENT FOR WIDE FORMAT PRINTING</p>
+        <div className="space-y-4 md:w-1/5">
+          <h2 className="text-4xl font-bold">Mart-Hurt</h2>
           <div className="flex space-x-4">
-            <a href="#"><img src="/path/to/youtube-icon.png" alt="YouTube" className="w-6 h-6"/></a>
-            <a href="#"><img src="/path/to/telegram-icon.png" alt="Telegram" className="w-6 h-6"/></a>
+            {sectionsData.socialLinks.map((link, index) => (
+              <Link key={index} href={link.href}>
+                <FontAwesomeIcon
+                  icon={iconMap[link.icon]}
+                  className="hover:text-slate-400 transition-transform transform hover:scale-105 duration-300"
+                />
+              </Link>
+            ))}
           </div>
         </div>
         <div className="flex flex-wrap space-y-6 md:space-y-0 md:space-x-8 md:w-3/4">
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6">
-            <h3 className="font-bold">Catalog</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#">Equipment</a></li>
-              <li><a href="#">Ink</a></li>
-              <li><a href="#">Parts</a></li>
-              <li><a href="#">Brands</a></li>
-            </ul>
-          </div>
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6">
-            <h3 className="font-bold">About Us</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#">Our Experience</a></li>
-              <li><a href="#">News</a></li>
-              <li><a href="#">Certificates</a></li>
-              <li><a href="#">Careers</a></li>
-            </ul>
-          </div>
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6">
-            <h3 className="font-bold">Service</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#">Engineer Call</a></li>
-              <li><a href="#">Maintenance</a></li>
-              <li><a href="#">Technical Instructions</a></li>
-            </ul>
-          </div>
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6">
-            <h3 className="font-bold">For Buyers</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#">Demo Room</a></li>
-              <li><a href="#">Leasing</a></li>
-              <li><a href="#">Articles</a></li>
-              <li><a href="#">Contacts</a></li>
-            </ul>
-          </div>
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/6">
-            <h3 className="font-bold">Contacts</h3>
-            <ul className="space-y-2 text-sm">
-              <li><strong>Phone:</strong> +7 (495) 414-26-08</li>
-              <li>+7 (925) 488-42-98</li>
-              <li><strong>WhatsApp:</strong> +7 (925) 488-42-98</li>
-              <li><strong>Email:</strong> info@profplotter.ru</li>
-              <li>zaka@profplotter.ru</li>
-              <li><strong>Address:</strong> g. Korolev, ul. Frunze, d.1A of.228</li>
-            </ul>
-          </div>
+          {sectionsData.sections.map((section, index) => (
+            <div key={index} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5">
+              <h3 className="font-bold text-3xl mb-4">{section.title}</h3>
+              {section.links ? (
+                <ul className="space-y-2 text-sm pl-1">
+                  {section.links.map((link, idx) => (
+                    <li
+                      key={idx}
+                      className="hover:text-slate-400 transition-transform transform hover:scale-105 duration-300"
+                    >
+                      <a href={link.href}>{link.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className="space-y-2 text-sm pl-1">
+                  {section.details.map((detail, idx) => (
+                    <li key={idx}>
+                      <strong>{detail.label}: </strong>
+                      {detail.value}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
         </div>
       </div>
       <div className="container mx-auto mt-8 text-center border-t border-gray-700 pt-4">
         <p className="text-xs">&copy;2024 Marthurt</p>
-        <div className="flex justify-center space-x-4 mt-2 text-xs">
-          <a href="#">Site Map</a>
-          <a href="#">Privacy Policy</a>
-        </div>
       </div>
     </footer>
   );

@@ -82,12 +82,34 @@ const products = [
     image_url:
       "MH2189__B_Gold_2heads__Tricolor__no_RC___LWL012_Sanoni_LED_Store.png",
   },
+  {
+    brand: "LIGHT PRESTIGE",
+    model: "MH2187",
+    name: "LP-2004/1P M AM Tropea 1 wisząca średnia bursztyn",
+    price_net: 202.44,
+    price_gross: 263.0,
+    price_discount_net: 213.82,
+    price_discount_gross: 351.0,
+    price_final_gross: 285.0,
+    price_final: 499.0,
+    price_compare: 614.0,
+    details: {
+      lamp: "Lampa wisząca Arba 16 Red",
+      dimensions: "ø16cm x h max 110cm",
+      bulb: "1 x E27 (60W)/230V",
+      bulbs_included: "Żarówki nie są w komplecie",
+      color: "champagne+rose+red",
+    },
+    quantity: 232,
+    delivery_time: "10 dni",
+    image_url: "MH2187_LP_2004_1P_M_AM_Tropea_1_wisz_ca__rednia_bursztyn.png",
+  },
 ];
 
 export default function ProductsGrid() {
   return (
     <main>
-      <div className="grid md:grid-cols-3 gap-8 px-5">
+      <div className="grid md:grid-cols-3 gap-8 md:px-52 px-5">
         {products.map((product) => (
           <Card key={product.model} className="drop-shadow-md cursor-pointer">
             <CardHeader>
