@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "myuser")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -29,6 +29,12 @@ public class MyUser {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<MyUserAuthority> userAuthorities;
+
+    @OneToOne(mappedBy = "myUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Client client;
+
+    @OneToOne(mappedBy = "myUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Worker worker;
 
     public MyUser(String username, String password, boolean enabled) {
         this.username = username;

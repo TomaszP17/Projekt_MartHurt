@@ -1,57 +1,68 @@
 package com.example.restapi.entity.products;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
-@NoArgsConstructor
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
     @Column(name = "id")
     private String id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "catalog_price", precision = 7, scale = 2)
-    private BigDecimal catalogPrice;
-
-    @Column(name = "purchase_price", precision = 7, scale = 2) // Decimal(7,2)
-    private BigDecimal purchasePrice;
-
-    @Column(name = "margin")
-    private BigDecimal margin;
-
-    @Column(name = "image")
-    private String image;
-
-    @Column(name = "retail_price", precision = 7, scale = 2)
-    private BigDecimal retailPrice;
-
-    @Column(name = "specification")
-    private String specification;
-
-    @Column(name = "deleted")
-    private boolean deleted;
-
-    @OneToOne(mappedBy = "product")
-    @JsonManagedReference
-    private Lighting lighting;
+    @ManyToOne
+    @JoinColumn(name = "product_markings_id", referencedColumnName = "id", nullable = false)
+    private ProductMarkings productMarkings;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    @JsonManagedReference
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = false)
     private Supplier supplier;
 
+    @Column(name = "product_name", nullable = false)
+    private String productName;
+
+    @ManyToOne
+    @JoinColumn(name = "product_category_id", referencedColumnName = "id", nullable = false)
+    private ProductCategory productCategory;
+
+    @Column(name = "netto_price", nullable = false)
+    private BigDecimal nettoPrice;
+
+    @Column(name = "conditions", nullable = false)
+    private String conditions;
+
+    @Column(name = "brutto_buy_price", nullable = false)
+    private BigDecimal bruttoBuyPrice;
+
+    @Column(name = "netto_buy_price", nullable = false)
+    private BigDecimal nettoBuyPrice;
+
+    @Column(name = "brutto_margin", nullable = false)
+    private BigDecimal bruttoMargin;
+
+    @Column(name = "netto_margin", nullable = false)
+    private BigDecimal nettoMargin;
+
+    @Column(name = "netto_client_buy_price", nullable = false)
+    private BigDecimal nettoClientBuyPrice;
+
+    @Column(name = "brutto_client_buy_price", nullable = false)
+    private BigDecimal bruttoClientBuyPrice;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Column(name = "availability", nullable = false)
+    private String availability;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ProductShop> productShops;
 }

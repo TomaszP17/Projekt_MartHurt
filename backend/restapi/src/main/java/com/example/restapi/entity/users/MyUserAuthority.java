@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users_authorities")
+@Table(name = "myuser_authority")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -19,7 +19,7 @@ public class MyUserAuthority {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "myuser_id", nullable = false)
     private MyUser user;
 
     @ManyToOne

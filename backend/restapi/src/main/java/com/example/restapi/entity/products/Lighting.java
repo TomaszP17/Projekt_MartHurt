@@ -1,12 +1,7 @@
 package com.example.restapi.entity.products;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "lighting")
@@ -17,11 +12,10 @@ import lombok.Setter;
 public class Lighting {
 
     @Id
+    @Column(name = "product_id")
     private String productId;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "product_id")
-    @JsonBackReference
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 }
