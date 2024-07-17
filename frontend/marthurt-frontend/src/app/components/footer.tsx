@@ -1,5 +1,3 @@
-// jak cos to usunac i zmienic na svg jezeli ikonki beda zbyt dlugo sie ladowaly
-
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,7 +13,33 @@ const iconMap = {
   faLinkedin,
 };
 
-const sectionsData = {
+type IconKey = keyof typeof iconMap;
+
+interface SocialLink {
+  icon: IconKey;
+  href: string;
+}
+
+interface SectionLink {
+  name: string;
+  href: string;
+}
+
+interface SectionDetails {
+  label: string;
+  value: string;
+}
+
+interface Section {
+  title: string;
+  links?: SectionLink[];
+  details?: SectionDetails[];
+}
+
+const sectionsData: {
+  socialLinks: SocialLink[];
+  sections: Section[];
+} = {
   socialLinks: [
     {
       icon: "faFacebook",
@@ -101,7 +125,7 @@ const Footer: React.FC = () => {
                 </ul>
               ) : (
                 <ul className="space-y-2 text-sm pl-1">
-                  {section.details.map((detail, idx) => (
+                  {section.details?.map((detail, idx) => (
                     <li key={idx}>
                       <strong>{detail.label}: </strong>
                       {detail.value}
