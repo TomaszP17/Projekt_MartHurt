@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface LightingService {
     List<LightingResponseDTO> getAllLighting();
-    List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom, BigDecimal priceTo, String supplierName);
+    List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom, BigDecimal priceTo, List<String> supplierNames);
     List<LightingResponseDTO> getSortedLighting(String sortBy);
 
     LightingFullResponseDTO getLighting(String lightingId) throws LightingNotFoundException;
