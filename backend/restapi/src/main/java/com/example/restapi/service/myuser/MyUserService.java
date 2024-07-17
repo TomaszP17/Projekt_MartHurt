@@ -1,4 +1,4 @@
-package com.example.restapi.service;
+package com.example.restapi.service.myuser;
 
 import com.example.restapi.dto.request.UserRequestDTO;
 import com.example.restapi.dto.response.UserResponseDTO;

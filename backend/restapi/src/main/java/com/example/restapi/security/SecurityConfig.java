@@ -1,7 +1,6 @@
 package com.example.restapi.security;
 
-import com.example.restapi.service.MyUserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.restapi.service.myuser.MyUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;

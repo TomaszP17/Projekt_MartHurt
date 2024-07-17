@@ -1,4 +1,4 @@
-package com.example.restapi.service;
+package com.example.restapi.service.authority;
 
 import com.example.restapi.dto.request.AuthorityRequestDTO;
 import com.example.restapi.dto.response.AuthorityResponseDTO;

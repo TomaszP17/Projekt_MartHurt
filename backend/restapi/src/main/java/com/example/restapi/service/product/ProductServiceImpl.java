@@ -1,4 +1,4 @@
-package com.example.restapi.service;
+package com.example.restapi.service.product;
 
 import com.example.restapi.entity.products.Product;
 import com.example.restapi.repository.ProductRepository;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 

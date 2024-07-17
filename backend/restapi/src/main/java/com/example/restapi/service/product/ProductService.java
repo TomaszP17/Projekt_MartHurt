@@ -1,4 +1,4 @@
-package com.example.restapi.service;
+package com.example.restapi.service.product;
 
 import com.example.restapi.entity.products.Product;
 

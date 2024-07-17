@@ -3,7 +3,7 @@ package com.example.restapi.controller;
 import com.example.restapi.dto.request.AuthorityRequestDTO;
 import com.example.restapi.dto.response.AuthorityResponseDTO;
 import com.example.restapi.exceptions.AuthorityNotFoundException;
-import com.example.restapi.service.AuthorityService;
+import com.example.restapi.service.authority.AuthorityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

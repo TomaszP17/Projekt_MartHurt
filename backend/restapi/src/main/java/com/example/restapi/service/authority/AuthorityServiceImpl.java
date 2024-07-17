@@ -1,4 +1,4 @@
-package com.example.restapi.service;
+package com.example.restapi.service.authority;
 
 import com.example.restapi.dto.request.AuthorityRequestDTO;
 import com.example.restapi.dto.response.AuthorityResponseDTO;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class AuthorityServiceImpl implements AuthorityService{
+public class AuthorityServiceImpl implements AuthorityService {
 
     private final AuthorityRepository authorityRepository;
 
