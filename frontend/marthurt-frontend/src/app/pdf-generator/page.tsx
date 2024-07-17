@@ -44,10 +44,8 @@ export default function Page() {
     }
   };
 
-
   return (
     <>
-      <Navbar />
       <div className="h-screen flex flex-col items-center pt-5">
         <Select
           options={options}
