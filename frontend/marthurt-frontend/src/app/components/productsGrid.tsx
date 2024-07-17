@@ -1,125 +1,89 @@
-import React from 'react'
-import Image from 'next/image'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import Filter from './filter'
+"use client";
 
-const products = [
-	{
-		brand: 'LIGHT PRESTIGE',
-		model: 'MH2187',
-		name: 'LP-2004/1P M AM Tropea 1 wisząca średnia bursztyn',
-		price_net: 202.44,
-		price_gross: 263.0,
-		price_discount_net: 213.82,
-		price_discount_gross: 351.0,
-		price_final_gross: 285.0,
-		price_final: 499.0,
-		price_compare: 614.0,
-		details: {
-			lamp: 'Lampa wisząca Arba 16 Red',
-			dimensions: 'ø16cm x h max 110cm',
-			bulb: '1 x E27 (60W)/230V',
-			bulbs_included: 'Żarówki nie są w komplecie',
-			color: 'champagne+rose+red',
-		},
-		quantity: 232,
-		delivery_time: '10 dni',
-		image_url: 'MH2187_LP_2004_1P_M_AM_Tropea_1_wisz_ca__rednia_bursztyn.png',
-	},
-	{
-		brand: 'LIGHT PRESTIGE',
-		model: 'MH2188',
-		name: 'LP-2004/1P S AM Tropea 1 wisząca mała bursztyn',
-		price_net: 196.75,
-		price_gross: 256.0,
-		price_discount_net: 208.13,
-		price_discount_gross: 358.0,
-		price_final_gross: 291.0,
-		price_final: 499.0,
-		price_compare: 614.0,
-		details: {
-			lamp: 'Lampa wisząca Arba 13 Rose',
-			dimensions: 'ø13cm x h max 110cm',
-			bulb: '1 x E27 (60W)/230V',
-			bulbs_included: 'Żarówki nie są w komplecie',
-			color: 'champagne+rose+red',
-		},
-		quantity: 232,
-		delivery_time: '10 dni',
-		image_url: 'MH2188_LP_2004_1P_S_AM_Tropea_1_wisz_ca_ma_a_bursztyn.png',
-	},
-	{
-		brand: 'ALI',
-		model: 'MH2189',
-		name: 'B-Gold-2heads, Tricolor (no RC )',
-		price_net: 150.0,
-		price_gross: 150.0,
-		price_discount_net: 121.95,
-		price_discount_gross: 464.0,
-		price_final_gross: 377.0,
-		price_final: 499.0,
-		price_compare: 614.0,
-		details: {
-			lamp: 'Lampa wisząca Dos LED gold',
-			dimensions: 'Rozmiar owalu: ø<10cm x h 33cm',
-			height: 'max 100cm',
-			bulb: 'LED 30W/230V (2 x 15W)',
-			lumens: '1500lm',
-			room_size: 'Do pomieszczeń: 5-10m2',
-			color_temperature: '3000K/4000K/6000K',
-			color_change: 'Zmiana barwy ręczna, bez pilota',
-			bulbs_included: 'Źródło światła LED w komplecie',
-			color: 'Dark gold',
-		},
-		availability: 'Dostępny tylko 2x model ekspozycyjny',
-		release: 'Premiera-prototyp',
-		image_url: 'MH2189__B_Gold_2heads__Tricolor__no_RC___LWL012_Sanoni_LED_Store.png',
-	},
-	{
-		brand: 'LIGHT PRESTIGE',
-		model: 'MH2187',
-		name: 'LP-2004/1P M AM Tropea 1 wisząca średnia bursztyn',
-		price_net: 202.44,
-		price_gross: 263.0,
-		price_discount_net: 213.82,
-		price_discount_gross: 351.0,
-		price_final_gross: 285.0,
-		price_final: 499.0,
-		price_compare: 614.0,
-		details: {
-			lamp: 'Lampa wisząca Arba 16 Red',
-			dimensions: 'ø16cm x h max 110cm',
-			bulb: '1 x E27 (60W)/230V',
-			bulbs_included: 'Żarówki nie są w komplecie',
-			color: 'champagne+rose+red',
-		},
-		quantity: 232,
-		delivery_time: '10 dni',
-		image_url: 'MH2187_LP_2004_1P_M_AM_Tropea_1_wisz_ca__rednia_bursztyn.png',
-	},
-]
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import axios from "axios";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Filter from "./filter";
+import { Lighting } from "../types";
 
-export default function ProductsGrid() {
-	return (
-		<main className='md:px-52 px-5'>
-			<div className='mb-5'>
-				<Filter />
-			</div>
-			<div className='grid md:grid-cols-3 gap-8'>
-				{products.map(product => (
-					<Card key={product.model} className='drop-shadow-md cursor-pointer'>
-						<CardHeader>
-							<div>
-								<Image width={100} height={100} src={`/images/${product.image_url}`} alt={product.name} />
-								<CardTitle>{product.name}</CardTitle>
-								<CardDescription>{product.name}</CardDescription>
-							</div>
-						</CardHeader>
-						<CardContent>{product.details.color}</CardContent>
-						<CardFooter>Szczegóły</CardFooter>
-					</Card>
-				))}
-			</div>
-		</main>
-	)
-}
+const ProductsGrid: React.FC = () => {
+  const [products, setProducts] = useState<Lighting[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:8080/lightings");
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("Failed to fetch products");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (!products || products.length === 0) {
+    return <p>No products available</p>;
+  }
+
+  return (
+    <main className="md:px-52 px-5">
+      <div className="mb-5">
+        <Filter />
+      </div>
+      <div className="grid md:grid-cols-3 gap-8">
+        {products.map((lighting) => (
+          <Card
+            key={lighting.productId}
+            className="drop-shadow-md cursor-pointer"
+          >
+            <CardHeader>
+              <div className="relative w-40 h-40 mx-auto">
+                <Image
+                  layout="fill"
+                  objectFit="contain"
+                  loader={() => lighting.urlImages[0]}
+                  src={lighting.urlImages[0]}
+                  alt={lighting.productName}
+                />
+              </div>
+              <CardTitle>{lighting.supplierName}</CardTitle>
+              <CardDescription>{lighting.productName}</CardDescription>
+            </CardHeader>
+            <CardContent>{lighting.productId}</CardContent>
+            <div className="flex p-5 gap-x-3">
+              <Button className="w-1/2 md:w-auto" variant={"outline"}>
+                Szczegóły
+              </Button>
+              <Button className="w-1/2 md:w-auto">Kup</Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </main>
+  );
+};
+
+export default ProductsGrid;

@@ -1,11 +1,6 @@
-import React from 'react'
-import ProductsGrid from './components/productsGrid'
-import { Filter } from './components/filter'
+import React from "react";
+import ProductsGrid from "./components/productsGrid";
 
 export default function Home() {
-	return (
-		<main>
-			<ProductsGrid />
-		</main>
-	)
+  return <main></main>;
 }

@@ -1,7 +1,7 @@
 # frontend/marthurt-frontend/Dockerfile
 
 # Użyj oficjalnego obrazu Node.js 18 jako obrazu bazowego
-FROM node:18
+FROM node:21
 
 # Set the working directory
 WORKDIR /app
