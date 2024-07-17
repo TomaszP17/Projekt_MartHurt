@@ -7,8 +7,8 @@ import java.util.List;
 
 public class FormDataRequestDTO {
 
-    private String name; // Nazwa produktu
-    private File photo; // Zdjęcie produktu (opcjonalne)
+    private String productName; // Nazwa produktu
+    private String photo; // Zdjęcie produktu (opcjonalne)
     private String description; // Opis produktu (możliwy do edycji)
     private double bruttoPrice; // Cena brutto za m²
     private double bruttoPriceWithDiscount; // Cena brutto po rabacie
