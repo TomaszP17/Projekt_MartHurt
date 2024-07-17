@@ -6,10 +6,10 @@ import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.service.lighting.LightingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/lightings")
 public class LightingController {

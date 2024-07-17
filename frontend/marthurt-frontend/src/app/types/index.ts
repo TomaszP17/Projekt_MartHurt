@@ -30,3 +30,10 @@ export interface Quote {
 	deliveryDate: string
 	additionalInfo: string
 }
+
+export interface Lighting {
+	urlImages: string[];
+	productName: string;
+	productId: string;
+	supplierName: string;
+}
