@@ -21,17 +21,22 @@ public class LightingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LightingResponseDTO>> getAllLighting() {
-        return ResponseEntity.ok(lightingService.getAllLighting());
-    }
+    public ResponseEntity<List<LightingResponseDTO>> getLightings(
+            @RequestParam(required = false) BigDecimal priceFrom,
+            @RequestParam(required = false) BigDecimal priceTo,
+            @RequestParam(required = false) List<String> supplierNames
+    ) {
+        if (priceFrom != null || priceTo != null || supplierNames != null) {
+            List<LightingResponseDTO> result = lightingService.getFilteredLighting(priceFrom, priceTo, supplierNames);
 
-    @GetMapping("/filter")
-    public ResponseEntity<List<LightingResponseDTO>> getFilteredLighting(
-            @RequestParam BigDecimal priceFrom,
-            @RequestParam BigDecimal priceTo,
-            @RequestParam String supplierName
-    ){
-        return ResponseEntity.ok(lightingService.getFilteredLighting(priceFrom, priceTo, supplierName));
+            if (result.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(result);
+            }
+        }
+
+        return ResponseEntity.ok(lightingService.getAllLighting());
     }
     //todo
     @GetMapping("/sort")

@@ -30,13 +30,17 @@ public class LightingServiceImpl implements LightingService{
     }
 
     @Override
-    public List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom, BigDecimal priceTo, String supplierName) {
+    public List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom,
+                                                         BigDecimal priceTo,
+                                                         List<String> supplierNames) {
         return lightingRepository
                 .findAll()
                 .stream()
                 .filter(lighting -> lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceFrom) >= 0 &&
                         lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceTo) <= 0 &&
-                        (supplierName == null || lighting.getProduct().getSupplier().getName().equals(supplierName)))
+                        (supplierNames == null
+                                || supplierNames.size() == 0
+                                || supplierNames.contains(lighting.getProduct().getSupplier().getName())))
                 .map(this::convertToDTO)
                 .toList();
     }
