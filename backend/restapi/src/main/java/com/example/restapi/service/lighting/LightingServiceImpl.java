@@ -1,11 +1,13 @@
 package com.example.restapi.service.lighting;
 
+import com.example.restapi.controller.LightingController;
 import com.example.restapi.dto.response.LightingResponseDTO;
 import com.example.restapi.entity.products.Image;
 import com.example.restapi.entity.products.Lighting;
 import com.example.restapi.repository.LightingRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -24,6 +26,18 @@ public class LightingServiceImpl implements LightingService{
                 .toList();
     }
 
+    @Override
+    public List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom, BigDecimal priceTo, String supplierName) {
+        return lightingRepository
+                .findAll()
+                .stream()
+                .filter(lighting -> lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceFrom) >= 0 &&
+                        lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceTo) <= 0 &&
+                        (supplierName == null || lighting.getProduct().getSupplier().getName().equals(supplierName)))
+                .map(this::convertToDTO)
+                .toList();
+    }
+
     private LightingResponseDTO convertToDTO(Lighting lighting) {
         return new LightingResponseDTO(
                 lighting.getProduct().getImages().stream().map(Image::getUrl).toList(),
@@ -33,9 +47,4 @@ public class LightingServiceImpl implements LightingService{
         );
     }
 
-
-    @Override
-    public List<LightingResponseDTO> getFilteredLighting() {
-        return List.of();
-    }
 }

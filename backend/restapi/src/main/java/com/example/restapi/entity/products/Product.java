@@ -26,7 +26,7 @@ public class Product {
     @JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = false)
     private Supplier supplier;
 
-    @Column(name = "product_name", nullable = false)
+    @Column(name = "product_name",columnDefinition = "TEXT", nullable = false)
     private String productName;
 
     @ManyToOne
@@ -57,7 +57,7 @@ public class Product {
     @Column(name = "brutto_client_buy_price", nullable = false)
     private BigDecimal bruttoClientBuyPrice;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @Column(name = "availability", nullable = false)

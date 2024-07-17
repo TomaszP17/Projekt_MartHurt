@@ -5,8 +5,10 @@ import com.example.restapi.service.lighting.LightingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -26,8 +28,14 @@ public class LightingController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<LightingResponseDTO>> getFilteredLighting(){
-        return null;
-    }
+    public ResponseEntity<List<LightingResponseDTO>> getFilteredLighting(
+            @RequestParam BigDecimal priceFrom,
+            @RequestParam BigDecimal priceTo,
+            @RequestParam String supplierName
+    ){
 
+        List<LightingResponseDTO> lightingResponseDTOList = lightingService.getFilteredLighting(priceFrom, priceTo, supplierName);
+
+        return ResponseEntity.ok(lightingResponseDTOList);
+    }
 }
