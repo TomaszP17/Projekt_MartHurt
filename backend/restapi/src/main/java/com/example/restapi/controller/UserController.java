@@ -2,7 +2,7 @@ package com.example.restapi.controller;
 
 import com.example.restapi.dto.request.UserRequestDTO;
 import com.example.restapi.dto.response.UserResponseDTO;
-import com.example.restapi.service.MyUserService;
+import com.example.restapi.service.myuser.MyUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

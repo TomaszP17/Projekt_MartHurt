@@ -12,14 +12,14 @@ public class AuthorityResponseDTO {
     private String authorityName;
     private Set<Integer> usersId;
 
-    // Konstruktor dla Authority bez użytkowników
+
     public AuthorityResponseDTO(int id, String authorityName) {
         this.id = id;
         this.authorityName = authorityName;
-        this.usersId = Set.of(); // pusty zestaw użytkowników
+        this.usersId = Set.of();
     }
 
-    // Konstruktor dla Authority z użytkownikami
+
     public AuthorityResponseDTO(int id, String authorityName, Set<Integer> usersId) {
         this.id = id;
         this.authorityName = authorityName;

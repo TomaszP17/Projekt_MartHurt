@@ -1,7 +1,7 @@
 package com.example.restapi.controller;
 
 import com.example.restapi.entity.products.Product;
-import com.example.restapi.service.ProductService;
+import com.example.restapi.service.product.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
