@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Filter from "./filter";
-import Sort from "./sort"; // Import Sort component here
+import Sort from "./sort";
 import { Lighting } from "../types";
 import SkeletonCard from "./skeletonCard";
 import { useFilterStore } from "@/store/useFilterStore";
@@ -25,8 +25,14 @@ const ProductsGrid: React.FC = () => {
   const [products, setProducts] = useState<Lighting[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { priceFrom, priceTo, selectedSuppliers, filtersApplied } =
-    useFilterStore();
+  const {
+    priceFrom,
+    priceTo,
+    selectedSuppliers,
+    filtersApplied,
+    setSelectedSuppliers,
+    applyFilters,
+  } = useFilterStore();
   const { sortBy } = useSortStore();
 
   useEffect(() => {
@@ -56,15 +62,23 @@ const ProductsGrid: React.FC = () => {
   }, [filtersApplied, sortBy]);
 
   const handleRemoveSupplier = (supplier: string) => {
-    // Implement removing supplier functionality if needed
+    setSelectedSuppliers((prevSelected) =>
+      prevSelected.filter((s) => s !== supplier)
+    );
+    applyFilters();
   };
 
   if (loading) {
     return (
       <main className="lg:px-52 px-5">
         <div className="mb-5 flex justify-between items-center">
-          <Filter />
-          <Sort /> {}
+          <div>
+            <Filter />
+          </div>
+          <div className="flex-grow" />
+          <div>
+            <Sort />
+          </div>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {Array.from({ length: 6 }).map((_, index) => (
@@ -83,14 +97,13 @@ const ProductsGrid: React.FC = () => {
     return <p>No products available</p>;
   }
 
-  //dodać scroll area do badge gdy jestesmy na telefonie
-  //Zmienic rozklad filter, sort, badge na telefony
-
   return (
     <main className="xl:px-52 px-5">
-      <div className="flex flex-col md:flex-row gap-x-5 mb-5 items-center ">
-        <Filter />
-        <div className="flex flex-wrap gap-2">
+      <div className="flex flex-col md:flex-row gap-x-5 mb-5 items-center gap-y-2 md:gap-y-0">
+        <div className="w-full md:w-auto">
+          <Filter />
+        </div>
+        <div className="flex flex-wrap w-full justify-start gap-2 md:order-2 order-3">
           <Badge className="bg-gray-100 text-gray-800 hover:bg-gray-300 cursor-pointer">
             Cena od: {priceFrom} zł
           </Badge>
@@ -101,21 +114,24 @@ const ProductsGrid: React.FC = () => {
             <Badge
               key={supplier}
               className="bg-gray-100 text-gray-800 flex items-center hover:bg-gray-300 cursor-pointer"
+              onClick={() => handleRemoveSupplier(supplier)}
             >
-              {supplier}
-              <button
+              {supplier} &times;
+              {/* <button
                 type="button"
                 onClick={() => handleRemoveSupplier(supplier)}
                 className="ml-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 cursor-pointer"
               >
                 <span className="sr-only">Remove</span>
                 &times;
-              </button>
+              </button> */}
             </Badge>
           ))}
         </div>
-        <div className="flex-grow" />
-        <Sort />
+        <div className="flex-grow order-3 hidden md:block" />
+        <div className="w-full md:w-auto order-2 md:order-4">
+          <Sort />
+        </div>
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8">
         {products.map((lighting) => (
@@ -137,16 +153,16 @@ const ProductsGrid: React.FC = () => {
               <CardDescription>{lighting.productName}</CardDescription>
             </CardHeader>
             <CardContent>{lighting.productId}</CardContent>
-            <div className="flex p-5 gap-x-3">
+            <div className="flex flex-col p-5 gap-x-3 md:flex-row gap-y-2">
               <Link
                 className="w-full"
                 href={`/lightings/${lighting.productId}`}
               >
-                <Button className="w-1/2 md:w-full" variant="outline">
+                <Button className="w-full" variant="outline">
                   Szczegóły
                 </Button>
               </Link>
-              <Button className="w-1/2 md:w-full">Kup</Button>
+              <Button className="w-full">Kup</Button>
             </div>
           </Card>
         ))}

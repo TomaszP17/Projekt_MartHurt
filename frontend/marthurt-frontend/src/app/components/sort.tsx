@@ -40,9 +40,9 @@ const Sort: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <Select onValueChange={handleSortByChange} value={sortBy}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-full md:w-auto">
           <SelectValue placeholder="Sortuj">
             {sortOptions[sortBy as SortOptionKey] || "Sortuj"}
           </SelectValue>
