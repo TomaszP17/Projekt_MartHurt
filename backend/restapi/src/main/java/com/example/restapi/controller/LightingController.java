@@ -35,20 +35,23 @@ public class LightingController {
     ) {
         List<LightingResponseDTO> result;
 
-        if (priceFrom != null || priceTo != null || supplierNames != null) {
-            result = lightingService.getFilteredLighting(priceFrom, priceTo, supplierNames);
-        } else {
-            result = lightingService.getAllLighting();
-        }
+        if(lightingSearch != null && !lightingSearch.isEmpty()){
+            result = lightingService.searchLighting(lightingSearch);
+        }else{
+            if (priceFrom != null || priceTo != null || supplierNames != null) {
+                result = lightingService.getFilteredLighting(priceFrom, priceTo, supplierNames);
+            } else {
+                result = lightingService.getAllLighting();
+            }
 
-        if (sortBy != null && !sortBy.isEmpty()) {
-            Comparator<LightingResponseDTO> comparator = ComparatorHelpers.getComparator(sortBy, sortOrder);
-            result = result
-                    .stream()
-                    .sorted(comparator)
-                    .toList();
+            if (sortBy != null && !sortBy.isEmpty()) {
+                Comparator<LightingResponseDTO> comparator = ComparatorHelpers.getComparator(sortBy, sortOrder);
+                result = result
+                        .stream()
+                        .sorted(comparator)
+                        .toList();
+            }
         }
-
         return ResponseEntity.ok(result);
     }
 
