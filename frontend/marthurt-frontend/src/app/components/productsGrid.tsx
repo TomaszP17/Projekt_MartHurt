@@ -18,22 +18,26 @@ import { Lighting } from "../types";
 import SkeletonCard from "./skeletonCard";
 import { useFilterStore } from "@/store/useFilterStore";
 import { useSortStore } from "@/store/useSortStore";
+import { useSearchStore } from "@/store/useSearchStore";
 import { Badge } from "@/components/ui/badge";
 import dynamic from "next/dynamic";
+import { Input } from "@/components/ui/input";
 
 const ProductsGrid: React.FC = () => {
   const [products, setProducts] = useState<Lighting[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState<string>("");
   const {
     priceFrom,
     priceTo,
     selectedSuppliers,
-    filtersApplied,
     setSelectedSuppliers,
+    filtersApplied,
     applyFilters,
   } = useFilterStore();
   const { sortBy } = useSortStore();
+  const { searchBy, setSearchBy } = useSearchStore();
 
   useEffect(() => {
     const sortBySplitted = sortBy.split(" ");
@@ -47,8 +51,10 @@ const ProductsGrid: React.FC = () => {
             supplierNames: selectedSuppliers.join(","),
             sortBy: sortBySplitted[0],
             sortOrder: sortBySplitted[1],
+            lightingSearch: searchBy,
           },
         });
+        console.log(res.request);
         setProducts(res.data);
       } catch (err) {
         console.error("Error fetching products:", err);
@@ -59,13 +65,17 @@ const ProductsGrid: React.FC = () => {
     };
 
     fetchProducts();
-  }, [filtersApplied, sortBy]);
+  }, [filtersApplied, sortBy, searchBy]);
 
   const handleRemoveSupplier = (supplier: string) => {
     setSelectedSuppliers((prevSelected) =>
       prevSelected.filter((s) => s !== supplier)
     );
     applyFilters();
+  };
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   if (loading) {
@@ -100,6 +110,19 @@ const ProductsGrid: React.FC = () => {
   return (
     <main className="xl:px-52 px-5">
       <div className="flex flex-col md:flex-row gap-x-5 mb-5 items-center gap-y-2 md:gap-y-0">
+        <Input
+          type="text"
+          placeholder="Szukaj produktów..."
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 w-full md:w-auto"
+          onChange={handleSearchInputChange}
+        />
+        <Button
+          onClick={() => setSearchBy(search)}
+          type="submit"
+          className="w-full md:w-auto"
+        >
+          Szukaj
+        </Button>
         <div className="w-full md:w-auto">
           <Filter />
         </div>
