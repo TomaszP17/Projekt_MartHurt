@@ -33,26 +33,28 @@ public class LightingServiceImpl implements LightingService{
     public List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom,
                                                          BigDecimal priceTo,
                                                          List<String> supplierNames) {
+
         return lightingRepository
                 .findAll()
                 .stream()
-                .filter(lighting -> lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceFrom) >= 0 &&
-                        lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceTo) <= 0 &&
+                .filter(lighting ->
+                        (priceFrom == null || lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceFrom) >= 0) &&
+                                (priceTo == null || lighting.getProduct().getBruttoClientBuyPrice().compareTo(priceTo) <= 0) &&
                         (supplierNames == null
-                                || supplierNames.size() == 0
+                                || supplierNames.isEmpty()
                                 || supplierNames.contains(lighting.getProduct().getSupplier().getName())))
                 .map(this::convertToDTO)
                 .toList();
     }
 
-    @Override
+    /*@Override
     public List<LightingResponseDTO> getSortedLighting(String sortBy) {
         return lightingRepository
                 .findAll(Sort.by(Sort.Direction.ASC, sortBy))
                 .stream()
                 .map(this::convertToDTO)
                 .toList();
-    }
+    }*/
 
 
     public LightingFullResponseDTO getLighting(String lightingId) throws LightingNotFoundException {
@@ -73,12 +75,23 @@ public class LightingServiceImpl implements LightingService{
         );
     }
 
+    @Override
+    public List<LightingResponseDTO> searchLighting(String searchLightingName) {
+        return lightingRepository
+                .findAll()
+                .stream()
+                .filter(lighting -> lighting.getProduct().getProductName().equals(searchLightingName))
+                .map(this::convertToDTO)
+                .toList();
+    }
+
     private LightingResponseDTO convertToDTO(Lighting lighting) {
         return new LightingResponseDTO(
                 lighting.getProduct().getImages().stream().map(Image::getUrl).toList(),
                 lighting.getProduct().getProductName(),
                 lighting.getProduct().getId(),
-                lighting.getProduct().getSupplier().getName()
+                lighting.getProduct().getSupplier().getName(),
+                lighting.getProduct().getBruttoClientBuyPrice()
         );
     }
 
