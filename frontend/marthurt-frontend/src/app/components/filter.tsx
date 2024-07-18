@@ -77,7 +77,7 @@ const Filter: React.FC = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" className="w-full md:w-auto">
           Filtruj <FontAwesomeIcon icon={iconMap.faFilter} className="ml-2" />
         </Button>
       </SheetTrigger>

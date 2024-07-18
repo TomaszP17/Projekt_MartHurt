@@ -12,13 +12,6 @@ interface FilterState {
   filtersApplied: boolean;
 }
 
-interface SortState {
-  sortBy: string;
-  sortAscending: boolean;
-  setSortBy: (field: string) => void;
-  toggleSortDirection: () => void;
-}
-
 export const useFilterStore = create<FilterState>((set) => ({
   priceFrom: 0,
   priceTo: 20000,
@@ -31,13 +24,4 @@ export const useFilterStore = create<FilterState>((set) => ({
   })),
   applyFilters: () => set((state) => ({ filtersApplied: !state.filtersApplied })),
 }));
-
-
-export const useSortStore = create<SortState>((set) => ({
-  sortBy: 'productName', 
-  sortAscending: true, 
-  setSortBy: (field) => set({ sortBy: field }),
-  toggleSortDirection: () => set((state) => ({ sortAscending: !state.sortAscending })),
-}));
-
 
