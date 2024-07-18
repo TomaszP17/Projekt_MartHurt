@@ -76,7 +76,6 @@ export default function Page() {
                     <p className='text-lg font-semibold'>Cena netto: {product.nettoClientBuyPrice} zł</p>
                     <p className='text-lg font-semibold'>Cena brutto: {product.bruttoClientBuyPrice} zł</p>
                     <Table>
-                        <TableCaption>Opis Produktu</TableCaption>
                         <TableBody>
                             <TableRow>
                                 <TableCell className='font-medium'>Rodzaj</TableCell>
