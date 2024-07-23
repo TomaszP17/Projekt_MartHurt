@@ -3,21 +3,19 @@ package com.example.restapi.entity.products;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
 @Entity
-@Table(name = "product_category")
+@Table(name = "comment")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductCategory {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Product> products;
+    @Column(name = "message", nullable = false)
+    private String message;
 }
