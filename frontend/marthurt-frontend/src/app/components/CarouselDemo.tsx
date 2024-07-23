@@ -34,7 +34,6 @@ export function CarouselDemo() {
 	if (error) {
 		return <p>{error}</p>
 	}
-
 	const productsPerPage = 3
 	const groupedProducts = []
 	for (let i = 0; i < products.length; i += productsPerPage) {
