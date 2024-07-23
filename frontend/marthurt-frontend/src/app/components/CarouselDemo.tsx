@@ -1,13 +1,18 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, forwardRef, Ref } from 'react'
 import axios from 'axios'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { LightingNews } from '../types'
+import Autoplay from 'embla-carousel-autoplay'
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 
-export function CarouselDemo() {
+export function CarouselPlugin() {
+	const plugin = React.useRef(Autoplay({ delay: 4000, stopOnInteraction: true }))
+}
+
+export const CarouselDemo = forwardRef<HTMLElement>((props, ref: Ref<HTMLElement>) => {
 	const [products, setProducts] = useState<LightingNews[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
@@ -41,10 +46,10 @@ export function CarouselDemo() {
 	}
 
 	return (
-		<section className='py-12 bg-gray-100'>
+		<section id='carousel' ref={ref} className='py-12 bg-gray-100'>
 			<div className='container mx-auto px-4'>
 				<h2 className='text-2xl md:text-3xl font-bold text-center mb-8'>Nowości</h2>
-				<Carousel className='w-full max-w-screen-lg mx-auto'>
+				<Carousel plugins={[Autoplay({ delay: 4000 })]} className='w-full max-w-screen-lg mx-auto'>
 					<CarouselContent>
 						{groupedProducts.map((group, index) => (
 							<CarouselItem key={index}>
@@ -83,4 +88,4 @@ export function CarouselDemo() {
 			</div>
 		</section>
 	)
-}
+})
