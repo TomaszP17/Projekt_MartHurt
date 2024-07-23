@@ -1,5 +1,5 @@
 import React from "react";
-import Cart from "../components/cart";
+import Cart from "../../custom-components/cart";
 export default function page() {
   return (
     <>

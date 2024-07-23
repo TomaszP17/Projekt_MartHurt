@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import Select from "../components/select";
-import Form from "../components/form";
+import Select from "../../custom-components/select";
+import Form from "../../custom-components/form";
 import { Option, Quote } from "../types";
-import Navbar from "../components/navbar";
+import Navbar from "../../custom-components/navbar";
 
 const options: Option[] = [
   { value: "MH-206", label: "MH-206" },

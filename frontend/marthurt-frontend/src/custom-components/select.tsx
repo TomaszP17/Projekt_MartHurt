@@ -3,7 +3,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Option, CustomSelectProps } from "../types";
+import { Option, CustomSelectProps } from "../app/types";
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
   options,

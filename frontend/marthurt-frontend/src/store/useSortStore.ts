@@ -1,5 +1,5 @@
 // src/store/useSortStore.ts
-import create from 'zustand';
+import {create} from 'zustand';
 
 interface SortState {
   sortBy: string;

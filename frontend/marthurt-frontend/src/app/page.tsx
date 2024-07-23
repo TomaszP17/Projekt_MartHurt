@@ -1,9 +1,12 @@
 import React from "react";
-import ProductsGrid from "./components/productsGrid";
-import Hero from "./components/hero";
+import Hero from "@/custom-components/hero";
+import CarouselSection from "@/custom-components/carousel";
 
 export default function Home() {
-  return <main>
-    <Hero></Hero>
-  </main>;
+  return (
+    <main>
+      <Hero />
+      <CarouselSection />
+    </main>
+  );
 }

@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Filter from "./filter";
 import Sort from "./sort";
-import { Lighting } from "../types";
+import { Lighting } from "../app/types";
 import SkeletonCard from "./skeletonCard";
 import { useFilterStore } from "@/store/useFilterStore";
 import { useSortStore } from "@/store/useSortStore";
