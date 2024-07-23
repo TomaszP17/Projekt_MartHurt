@@ -1,7 +1,7 @@
 package com.example.restapi.service.myuser;
 
 import com.example.restapi.dto.request.UserRequestDTO;
-import com.example.restapi.dto.response.UserResponseDTO;
+import com.example.restapi.dto.response.user.UserResponseDTO;
 import com.example.restapi.entity.users.Authority;
 import com.example.restapi.entity.users.MyUser;
 import com.example.restapi.entity.users.MyUserAuthority;

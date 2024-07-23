@@ -1,6 +1,6 @@
 package com.example.restapi.helpers;
 
-import com.example.restapi.dto.response.LightingResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingResponseDTO;
 
 import java.util.Comparator;
 

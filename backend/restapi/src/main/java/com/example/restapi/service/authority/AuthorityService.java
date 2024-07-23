@@ -1,7 +1,7 @@
 package com.example.restapi.service.authority;
 
 import com.example.restapi.dto.request.AuthorityRequestDTO;
-import com.example.restapi.dto.response.AuthorityResponseDTO;
+import com.example.restapi.dto.response.authority.AuthorityResponseDTO;
 import com.example.restapi.exceptions.AuthorityNotFoundException;
 
 import java.util.List;
