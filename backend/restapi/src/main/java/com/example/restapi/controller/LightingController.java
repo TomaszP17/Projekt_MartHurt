@@ -2,11 +2,9 @@ package com.example.restapi.controller;
 
 import com.example.restapi.dto.response.LightingFullResponseDTO;
 import com.example.restapi.dto.response.LightingResponseDTO;
-import com.example.restapi.entity.products.Lighting;
 import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.helpers.ComparatorHelpers;
 import com.example.restapi.service.lighting.LightingService;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
@@ -62,5 +60,11 @@ public class LightingController {
         } catch (LightingNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("pdf-lightings")
+    public ResponseEntity<?> getLightingsFromCart(List<String> productsId){
+        //todo zwrocic to gowno z koszyka na podstawie idkow
+        return null;
     }
 }
