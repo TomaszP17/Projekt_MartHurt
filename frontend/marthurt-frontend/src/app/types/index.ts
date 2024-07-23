@@ -13,9 +13,10 @@ export interface FormData {
 	name: string
 	photo?: File | null
 	description: string
+	nettoPrice: number
 	bruttoPrice: number
-	bruttoPriceWithDiscount: number
 	quantity: number
+	bruttoPriceWithDiscount: number
 	totalValueAfterDiscount: number
 }
 
