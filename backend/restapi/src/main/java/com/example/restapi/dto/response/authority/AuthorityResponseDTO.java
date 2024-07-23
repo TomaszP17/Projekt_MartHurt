@@ -1,4 +1,4 @@
-package com.example.restapi.dto.response;
+package com.example.restapi.dto.response.authority;
 
 import lombok.Getter;
 import lombok.Setter;

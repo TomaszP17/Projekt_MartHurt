@@ -1,4 +1,4 @@
-package com.example.restapi.dto.response;
+package com.example.restapi.dto.response.lighting;
 
 public record LightingNamesResponseDTO(
         String imagesUrls,

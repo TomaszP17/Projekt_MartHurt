@@ -1,9 +1,9 @@
 package com.example.restapi.controller;
 
-import com.example.restapi.dto.response.LightingFromShoppingCartResponseDTO;
-import com.example.restapi.dto.response.LightingFullResponseDTO;
-import com.example.restapi.dto.response.LightingNamesResponseDTO;
-import com.example.restapi.dto.response.LightingResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFromShoppingCartResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFullResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingNamesResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingResponseDTO;
 import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.helpers.ComparatorHelpers;
 import com.example.restapi.service.lighting.LightingService;
@@ -65,13 +65,19 @@ public class LightingController {
     }
 
     @GetMapping("/pdf-lighting")
-    public ResponseEntity<List<LightingFromShoppingCartResponseDTO>> getLightingsFromCart(List<String> productsId){
-        //todo zwrocic to gowno z koszyka na podstawie idkow
-        return ResponseEntity.ok(lightingService.getLightingsFromShoppingCart());
+    public ResponseEntity<List<LightingFromShoppingCartResponseDTO>> getLightingsFromCart(
+            @RequestParam("productsId") List<String> productsId
+    ) {
+        return ResponseEntity.ok(lightingService.getLightingsFromShoppingCart(productsId));
     }
 
     @GetMapping("/news")
     public ResponseEntity<List<LightingNamesResponseDTO>> getNewsLighting(){
         return ResponseEntity.ok(lightingService.getNewsLighting());
     }
+
+    /*@GetMapping("/shopping-cart")
+    public ResponseEntity<?> getLightingFromShoppingCart(){
+        return null;
+    }*/
 }

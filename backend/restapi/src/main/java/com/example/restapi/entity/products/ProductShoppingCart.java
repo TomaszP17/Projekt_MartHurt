@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "product_comment")
+@Table(name = "product_shopping_cart")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductComment {
+public class ProductShoppingCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +17,13 @@ public class ProductComment {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "shopping_cart_id", referencedColumnName = "id", nullable = false)
+    private ShoppingCart shoppingCart;
+
+    @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "comment_id", referencedColumnName = "id", nullable = false)
-    private Comment comment;
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
 }

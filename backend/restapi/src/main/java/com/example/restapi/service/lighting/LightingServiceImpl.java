@@ -1,19 +1,17 @@
 package com.example.restapi.service.lighting;
 
-import com.example.restapi.dto.response.LightingFromShoppingCartResponseDTO;
-import com.example.restapi.dto.response.LightingFullResponseDTO;
-import com.example.restapi.dto.response.LightingNamesResponseDTO;
-import com.example.restapi.dto.response.LightingResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFromShoppingCartResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFullResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingNamesResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingResponseDTO;
 import com.example.restapi.entity.products.Image;
 import com.example.restapi.entity.products.Lighting;
 import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.repository.LightingRepository;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,8 +34,8 @@ public class LightingServiceImpl implements LightingService{
     @Override
     public List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom,
                                                          BigDecimal priceTo,
-                                                         List<String> supplierNames) {
-
+                                                         List<String> supplierNames
+    ) {
         return lightingRepository
                 .findAll()
                 .stream()
@@ -86,7 +84,7 @@ public class LightingServiceImpl implements LightingService{
     }
 
     /**
-     * Get last added 10 lightings
+     * Get last added 12 lightings
      * @return list of lightingnamesresponseDTO
      */
     @Override
@@ -102,12 +100,17 @@ public class LightingServiceImpl implements LightingService{
     }
 
     /**
-     * Get DTO about products (lightings) from shopping cart to pricing form
-     * @return list with lighting dto
+     * Get product details from shopping cart into form pricing
+     * @param productsId ids products as list
+     * @return response dto
      */
     @Override
-    public List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart() {
-        return List.of();
+    public List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart(List<String> productsId) {
+        return lightingRepository
+                .findByProductIds(productsId)
+                .stream()
+                .map(this::convertToShoppingCartDTO)
+                .toList();
     }
 
     private LightingResponseDTO convertToDTO(Lighting lighting) {
@@ -131,6 +134,17 @@ public class LightingServiceImpl implements LightingService{
                         .orElse(""),
                 lighting.getProductName(),
                 lighting.getProductId()
+        );
+    }
+
+    private LightingFromShoppingCartResponseDTO convertToShoppingCartDTO(Lighting lighting) {
+        return new LightingFromShoppingCartResponseDTO(
+                lighting.getProductName(),
+                lighting.getProduct().getImages().stream().map(Image::getUrl).findFirst().orElse(null),
+                lighting.getProduct().getDescription(),
+                lighting.getProduct().getNettoClientBuyPrice(),
+                lighting.getProduct().getBruttoClientBuyPrice(),
+                BigDecimal.ONE
         );
     }
 }

@@ -21,7 +21,6 @@ public class SecurityConfig {
 
     private final MyUserServiceImpl userDetailsService;
 
-
     public SecurityConfig(@Lazy MyUserServiceImpl userDetailsService) {
         this.userDetailsService = userDetailsService;
     }

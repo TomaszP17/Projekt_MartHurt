@@ -1,4 +1,4 @@
-package com.example.restapi.dto.response;
+package com.example.restapi.dto.response.lighting;
 
 import java.math.BigDecimal;
 import java.util.Set;
