@@ -107,7 +107,7 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
 						<TableHead>Opis</TableHead>
 						<TableHead>Cena netto</TableHead>
 						<TableHead>Cena brutto /m²</TableHead>
-						<TableHead>szt/m²</TableHead>
+						<TableHead>sztuka</TableHead>
 						<TableHead>Cena brutto po rabacie</TableHead>
 						<TableHead>Wartość łączna po rabacie</TableHead>
 					</TableRow>
