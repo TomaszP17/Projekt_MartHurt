@@ -93,7 +93,7 @@ const sectionsData: {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-white py-8 mt-5">
+    <footer className="bg-black text-white py-8">
       <div className="container mx-auto px-4 space-y-6 md:space-y-0 md:flex md:justify-between">
         <div className="space-y-4 md:w-1/5">
           <h2 className="text-4xl font-bold">Mart-Hurt</h2>
