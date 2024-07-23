@@ -46,7 +46,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="h-screen flex flex-col items-center pt-5">
+      <div className="flex flex-col items-center pt-5 pb-5">
         <Select
           options={options}
           onChange={handleSelectChange}
