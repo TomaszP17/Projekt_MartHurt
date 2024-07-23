@@ -30,11 +30,11 @@ public class MyUser {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<MyUserAuthority> userAuthorities;
 
-    @OneToOne(mappedBy = "myUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(mappedBy = "myuser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Client client;
 
-    @OneToOne(mappedBy = "myUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Worker worker;
+    @OneToOne(mappedBy = "myuser", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Employee employee;
 
     public MyUser(String username, String password, boolean enabled) {
         this.username = username;

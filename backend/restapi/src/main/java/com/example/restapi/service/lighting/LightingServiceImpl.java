@@ -87,7 +87,7 @@ public class LightingServiceImpl implements LightingService{
     }
 
     /**
-     * Get last added 10 lightings
+     * Get last added 12 lightings
      * @return list of lightingnamesresponseDTO
      */
     @Override

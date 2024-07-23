@@ -1,5 +1,6 @@
 package com.example.restapi.entity.products;
 
+import com.example.restapi.entity.Comment;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -72,5 +73,8 @@ public class Product {
     private Set<Image> images;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<ProductComment> productComments;
+    private Set<Comment> comments;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ProductShoppingCart> productShoppingCarts;
 }

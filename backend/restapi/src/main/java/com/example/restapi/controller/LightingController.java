@@ -75,4 +75,9 @@ public class LightingController {
     public ResponseEntity<List<LightingNamesResponseDTO>> getNewsLighting(){
         return ResponseEntity.ok(lightingService.getNewsLighting());
     }
+
+    @GetMapping("/shopping-cart")
+    public ResponseEntity<?> getLightingFromShoppingCart(){
+        return null;
+    }
 }
