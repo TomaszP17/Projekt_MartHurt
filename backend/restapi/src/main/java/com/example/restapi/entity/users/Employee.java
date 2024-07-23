@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "client")
-@NoArgsConstructor
+@Table(name = "employee")
 @Getter
 @Setter
 @AllArgsConstructor
-public class Client {
+@NoArgsConstructor
+public class Employee {
 
     @Id
     @Column(name = "myuser_id")
@@ -19,13 +19,4 @@ public class Client {
     @MapsId
     @JoinColumn(name = "myuser_id")
     private MyUser myuser;
-
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "phone", nullable = false)
-    private String phone;
 }

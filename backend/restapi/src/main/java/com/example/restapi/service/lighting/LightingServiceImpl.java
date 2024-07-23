@@ -87,13 +87,13 @@ public class LightingServiceImpl implements LightingService{
     }
 
     /**
-     * Get last added 10 lightings
+     * Get last added 12 lightings
      * @return list of lightingnamesresponseDTO
      */
     @Override
     public List<LightingNamesResponseDTO> getNewsLighting() {
 
-        PageRequest pageRequest = PageRequest.of(0, 10);
+        PageRequest pageRequest = PageRequest.of(0, 12);
 
         return lightingRepository
                 .findTopByOrderByProductDateAddedDesc(pageRequest)
