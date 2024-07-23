@@ -2,8 +2,10 @@ package com.example.restapi.entity.products;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -23,15 +25,11 @@ public class Product {
     private ProductMarkings productMarkings;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "supplier_original_id", referencedColumnName = "id", nullable = false)
     private Supplier supplier;
 
-    @Column(name = "product_name",columnDefinition = "TEXT", nullable = false)
-    private String productName;
-
-    @ManyToOne
-    @JoinColumn(name = "product_category_id", referencedColumnName = "id", nullable = false)
-    private ProductCategory productCategory;
+    @Column(name = "product_original_name", nullable = false)
+    private String productOriginalName;
 
     @Column(name = "netto_price", nullable = false)
     private BigDecimal nettoPrice;
@@ -63,9 +61,16 @@ public class Product {
     @Column(name = "availability", nullable = false)
     private String availability;
 
+    @Column(name = "date_added", nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime dateAdded;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<ProductShop> productShops;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Image> images;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<ProductComment> productComments;
 }
