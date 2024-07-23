@@ -102,12 +102,17 @@ public class LightingServiceImpl implements LightingService{
     }
 
     /**
-     * Get DTO about products (lightings) from shopping cart to pricing form
-     * @return list with lighting dto
+     * Get product details from shopping cart into form pricing
+     * @param productsId ids products as list
+     * @return response dto
      */
     @Override
-    public List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart() {
-        return List.of();
+    public List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart(List<String> productsId) {
+        return lightingRepository
+                .findByProductIds(productsId)
+                .stream()
+                .map(this::convertToShoppingCartDTO)
+                .toList();
     }
 
     private LightingResponseDTO convertToDTO(Lighting lighting) {
@@ -131,6 +136,17 @@ public class LightingServiceImpl implements LightingService{
                         .orElse(""),
                 lighting.getProductName(),
                 lighting.getProductId()
+        );
+    }
+
+    private LightingFromShoppingCartResponseDTO convertToShoppingCartDTO(Lighting lighting) {
+        return new LightingFromShoppingCartResponseDTO(
+                lighting.getProductName(),
+                lighting.getProduct().getImages().stream().map(Image::getUrl).findFirst().orElse(null),
+                lighting.getProduct().getDescription(),
+                lighting.getProduct().getNettoClientBuyPrice(),
+                lighting.getProduct().getBruttoClientBuyPrice(),
+                BigDecimal.ONE
         );
     }
 }
