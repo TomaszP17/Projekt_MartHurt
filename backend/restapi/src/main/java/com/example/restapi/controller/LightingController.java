@@ -1,6 +1,7 @@
 package com.example.restapi.controller;
 
 import com.example.restapi.dto.response.LightingFullResponseDTO;
+import com.example.restapi.dto.response.LightingNamesResponseDTO;
 import com.example.restapi.dto.response.LightingResponseDTO;
 import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.helpers.ComparatorHelpers;
@@ -62,9 +63,14 @@ public class LightingController {
         }
     }
 
-    @GetMapping("pdf-lightings")
+    @GetMapping("/pdf-lightings")
     public ResponseEntity<?> getLightingsFromCart(List<String> productsId){
         //todo zwrocic to gowno z koszyka na podstawie idkow
         return null;
+    }
+
+    @GetMapping("/news")
+    public ResponseEntity<List<LightingNamesResponseDTO>> getNewsLighting(){
+        return ResponseEntity.ok(lightingService.getNewsLighting());
     }
 }

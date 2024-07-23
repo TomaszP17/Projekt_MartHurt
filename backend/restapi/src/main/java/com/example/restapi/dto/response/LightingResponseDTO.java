@@ -8,7 +8,7 @@ public record LightingResponseDTO(
         List<String> urlImages,
         String productName,
         String productId,
-        //String supplierName,
+        String name,
         BigDecimal bruttoClientBuyPrice,
         LocalDateTime dateAdded
 ) {

@@ -1,15 +1,18 @@
 package com.example.restapi.service.lighting;
 
 import com.example.restapi.dto.response.LightingFullResponseDTO;
+import com.example.restapi.dto.response.LightingNamesResponseDTO;
 import com.example.restapi.dto.response.LightingResponseDTO;
 import com.example.restapi.entity.products.Image;
 import com.example.restapi.entity.products.Lighting;
 import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.repository.LightingRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,17 +84,38 @@ public class LightingServiceImpl implements LightingService{
                 .toList();
     }
 
+    @Override
+    public List<LightingNamesResponseDTO> getNewsLighting() {
+
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        return lightingRepository
+                .findTopByOrderByProductDateAddedDesc(pageRequest)
+                .stream()
+                .map(this::convertToShortDTO)
+                .toList();
+    }
+
     private LightingResponseDTO convertToDTO(Lighting lighting) {
         return new LightingResponseDTO(
                 lighting.getProduct().getImages().stream().map(Image::getUrl).toList(),
                 lighting.getProduct().getProductOriginalName(),
-                lighting.getProduct().getId(),
-                //lighting.getProduct().getSupplier().getName(),
+                lighting.getProductId(),
+                lighting.getProductName(),
                 lighting.getProduct().getBruttoClientBuyPrice(),
                 lighting.getProduct().getDateAdded()
         );
     }
 
-
-
+    private LightingNamesResponseDTO convertToShortDTO(Lighting lighting){
+        return new LightingNamesResponseDTO(
+                lighting.getProduct()
+                        .getImages()
+                        .stream()
+                        .map(Image::getUrl)
+                        .findFirst()
+                        .orElse(null),
+                lighting.getProductName()
+        );
+    }
 }
