@@ -92,7 +92,7 @@ public class LightingServiceImpl implements LightingService{
     @Override
     public List<LightingNamesResponseDTO> getNewsLighting() {
 
-        PageRequest pageRequest = PageRequest.of(0, 10);
+        PageRequest pageRequest = PageRequest.of(0, 12);
 
         return lightingRepository
                 .findTopByOrderByProductDateAddedDesc(pageRequest)
