@@ -128,7 +128,7 @@ public class LightingServiceImpl implements LightingService{
                         .stream()
                         .map(Image::getUrl)
                         .findFirst()
-                        .orElse(null),
+                        .orElse(""),
                 lighting.getProductName(),
                 lighting.getProductId()
         );
