@@ -1,19 +1,17 @@
 package com.example.restapi.service.lighting;
 
-import com.example.restapi.dto.response.LightingFromShoppingCartResponseDTO;
-import com.example.restapi.dto.response.LightingFullResponseDTO;
-import com.example.restapi.dto.response.LightingNamesResponseDTO;
-import com.example.restapi.dto.response.LightingResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFromShoppingCartResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFullResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingNamesResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingResponseDTO;
 import com.example.restapi.entity.products.Image;
 import com.example.restapi.entity.products.Lighting;
 import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.repository.LightingRepository;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +36,6 @@ public class LightingServiceImpl implements LightingService{
                                                          BigDecimal priceTo,
                                                          List<String> supplierNames
     ) {
-
         return lightingRepository
                 .findAll()
                 .stream()

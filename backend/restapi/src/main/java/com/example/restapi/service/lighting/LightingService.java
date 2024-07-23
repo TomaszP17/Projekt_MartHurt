@@ -1,9 +1,9 @@
 package com.example.restapi.service.lighting;
 
-import com.example.restapi.dto.response.LightingFromShoppingCartResponseDTO;
-import com.example.restapi.dto.response.LightingFullResponseDTO;
-import com.example.restapi.dto.response.LightingNamesResponseDTO;
-import com.example.restapi.dto.response.LightingResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFromShoppingCartResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingFullResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingNamesResponseDTO;
+import com.example.restapi.dto.response.lighting.LightingResponseDTO;
 import com.example.restapi.exceptions.LightingNotFoundException;
 
 import java.math.BigDecimal;

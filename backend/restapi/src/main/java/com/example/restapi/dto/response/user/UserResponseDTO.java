@@ -1,4 +1,4 @@
-package com.example.restapi.dto.response;
+package com.example.restapi.dto.response.user;
 
 import java.util.Set;
 

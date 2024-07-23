@@ -1,7 +1,7 @@
 package com.example.restapi.controller;
 
 import com.example.restapi.dto.request.AuthorityRequestDTO;
-import com.example.restapi.dto.response.AuthorityResponseDTO;
+import com.example.restapi.dto.response.authority.AuthorityResponseDTO;
 import com.example.restapi.exceptions.AuthorityNotFoundException;
 import com.example.restapi.service.authority.AuthorityService;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,6 @@ public class AuthorityController {
 
     @GetMapping("/{authorityId}")
     public ResponseEntity<?> getAuthority(@PathVariable int authorityId){
-
         try{
             return ResponseEntity.ok(authorityService.getAuthorityById(authorityId));
         }catch (AuthorityNotFoundException e){
