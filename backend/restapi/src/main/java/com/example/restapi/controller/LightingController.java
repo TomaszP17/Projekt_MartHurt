@@ -65,9 +65,10 @@ public class LightingController {
     }
 
     @GetMapping("/pdf-lighting")
-    public ResponseEntity<List<LightingFromShoppingCartResponseDTO>> getLightingsFromCart(List<String> productsId){
-        //todo zwrocic to gowno z koszyka na podstawie idkow
-        return ResponseEntity.ok(lightingService.getLightingsFromShoppingCart());
+    public ResponseEntity<List<LightingFromShoppingCartResponseDTO>> getLightingsFromCart(
+            @RequestParam("productsId") List<String> productsId
+    ) {
+        return ResponseEntity.ok(lightingService.getLightingsFromShoppingCart(productsId));
     }
 
     @GetMapping("/news")

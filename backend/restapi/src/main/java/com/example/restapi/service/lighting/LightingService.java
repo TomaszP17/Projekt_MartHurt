@@ -18,5 +18,5 @@ public interface LightingService {
     List<LightingResponseDTO> searchLighting(String searchLightingName);
     List<LightingNamesResponseDTO> getNewsLighting();
 
-    List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart();
+    List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart(List<String> productsId);
 }
