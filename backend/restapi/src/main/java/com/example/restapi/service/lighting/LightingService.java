@@ -1,5 +1,6 @@
 package com.example.restapi.service.lighting;
 
+import com.example.restapi.dto.response.LightingFromShoppingCartResponseDTO;
 import com.example.restapi.dto.response.LightingFullResponseDTO;
 import com.example.restapi.dto.response.LightingNamesResponseDTO;
 import com.example.restapi.dto.response.LightingResponseDTO;
@@ -16,4 +17,6 @@ public interface LightingService {
     LightingFullResponseDTO getLighting(String lightingId) throws LightingNotFoundException;
     List<LightingResponseDTO> searchLighting(String searchLightingName);
     List<LightingNamesResponseDTO> getNewsLighting();
+
+    List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart();
 }
