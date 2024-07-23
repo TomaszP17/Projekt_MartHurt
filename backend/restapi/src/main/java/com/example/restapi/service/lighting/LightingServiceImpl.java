@@ -36,7 +36,8 @@ public class LightingServiceImpl implements LightingService{
     @Override
     public List<LightingResponseDTO> getFilteredLighting(BigDecimal priceFrom,
                                                          BigDecimal priceTo,
-                                                         List<String> supplierNames) {
+                                                         List<String> supplierNames
+    ) {
 
         return lightingRepository
                 .findAll()
