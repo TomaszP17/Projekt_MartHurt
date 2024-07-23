@@ -38,3 +38,11 @@ export interface Lighting {
 	productId: string;
 	supplierName: string;
 }
+
+
+export interface LightingNews {
+	imagesUrls: string | null;
+	imagesNames: string;
+	id: string;
+  }
+  
