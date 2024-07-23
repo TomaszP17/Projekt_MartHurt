@@ -1,5 +1,6 @@
 package com.example.restapi.controller;
 
+import com.example.restapi.dto.response.LightingFromShoppingCartResponseDTO;
 import com.example.restapi.dto.response.LightingFullResponseDTO;
 import com.example.restapi.dto.response.LightingNamesResponseDTO;
 import com.example.restapi.dto.response.LightingResponseDTO;
@@ -63,10 +64,10 @@ public class LightingController {
         }
     }
 
-    @GetMapping("/pdf-lightings")
-    public ResponseEntity<?> getLightingsFromCart(List<String> productsId){
+    @GetMapping("/pdf-lighting")
+    public ResponseEntity<List<LightingFromShoppingCartResponseDTO>> getLightingsFromCart(List<String> productsId){
         //todo zwrocic to gowno z koszyka na podstawie idkow
-        return null;
+        return ResponseEntity.ok(lightingService.getLightingsFromShoppingCart());
     }
 
     @GetMapping("/news")

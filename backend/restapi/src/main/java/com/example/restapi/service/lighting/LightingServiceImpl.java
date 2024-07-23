@@ -1,5 +1,6 @@
 package com.example.restapi.service.lighting;
 
+import com.example.restapi.dto.response.LightingFromShoppingCartResponseDTO;
 import com.example.restapi.dto.response.LightingFullResponseDTO;
 import com.example.restapi.dto.response.LightingNamesResponseDTO;
 import com.example.restapi.dto.response.LightingResponseDTO;
@@ -84,6 +85,10 @@ public class LightingServiceImpl implements LightingService{
                 .toList();
     }
 
+    /**
+     * Get last added 10 lightings
+     * @return list of lightingnamesresponseDTO
+     */
     @Override
     public List<LightingNamesResponseDTO> getNewsLighting() {
 
@@ -94,6 +99,15 @@ public class LightingServiceImpl implements LightingService{
                 .stream()
                 .map(this::convertToShortDTO)
                 .toList();
+    }
+
+    /**
+     * Get DTO about products (lightings) from shopping cart to pricing form
+     * @return list with lighting dto
+     */
+    @Override
+    public List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart() {
+        return List.of();
     }
 
     private LightingResponseDTO convertToDTO(Lighting lighting) {
@@ -115,7 +129,8 @@ public class LightingServiceImpl implements LightingService{
                         .map(Image::getUrl)
                         .findFirst()
                         .orElse(null),
-                lighting.getProductName()
+                lighting.getProductName(),
+                lighting.getProductId()
         );
     }
 }
