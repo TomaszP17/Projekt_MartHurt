@@ -2,15 +2,15 @@ import React from "react";
 import Authentication from "@/custom-components/authentication";
 
 interface authenticationContainerProps {
-  register: boolean;
+  isRegister: boolean;
 }
 
 export default function AuthenticationContainer({
-  register,
+  isRegister,
 }: authenticationContainerProps) {
   return (
     <div className="flex h-screen items-center">
-      <Authentication register={register} />
+      <Authentication isRegister={isRegister} />
     </div>
   );
 }

@@ -7,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { useCartStore } from "@/store/useCartStore";
 import { CartButton } from "./CartButton";
 import { ShoppingCart } from "lucide-react";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Navbar() {
   const { totalItems } = useCartStore();
+  const { token } = useAuthStore();
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -17,6 +19,8 @@ export default function Navbar() {
       "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"; // ni
     link.rel = "stylesheet";
     document.head.appendChild(link);
+
+    console.log(token);
 
     return () => {
       document.head.removeChild(link);
@@ -95,12 +99,16 @@ export default function Navbar() {
             />
           </div>
           <CartButton />
-          <Button
-            variant={`outline`}
-            className="px-4 py-2 rounded-md hover:bg-black hover:text-white"
-          >
-            Zaloguj się
-          </Button>
+          {token === null ? (
+            <Button
+              variant={`outline`}
+              className="px-4 py-2 rounded-md hover:bg-black hover:text-white"
+            >
+              Zaloguj się
+            </Button>
+          ) : (
+            <h1>Witaj użytkownik!</h1>
+          )}
         </div>
       </header>
       <hr className="border-gray-300" />

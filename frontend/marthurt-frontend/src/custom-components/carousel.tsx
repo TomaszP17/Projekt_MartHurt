@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { LightingNews } from "../types";
 import Autoplay from "embla-carousel-autoplay";
+import api from "@/services/api";
 
 import {
   Carousel,
@@ -28,9 +29,8 @@ const CarouselSection: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/lightings/news"
-        );
+        const response = await api.get("/lightings/news");
+        console.log(response);
         setProducts(response.data);
       } catch (err) {
         setError("Failed to fetch products");
