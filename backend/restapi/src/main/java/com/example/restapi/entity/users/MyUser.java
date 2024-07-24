@@ -11,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class MyUser {
 
     @Id
@@ -25,7 +26,10 @@ public class MyUser {
     private String password;
 
     @Column(name = "enabled", nullable = false)
-    private boolean enabled;
+    private boolean enabled = true;
+
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<MyUserAuthority> userAuthorities;
