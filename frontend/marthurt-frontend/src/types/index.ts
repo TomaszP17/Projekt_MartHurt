@@ -41,7 +41,7 @@ export interface Lighting {
 
 
 export interface LightingNews {
-	imagesUrls: string[];
+	imagesUrls?: string | null;
 	imagesNames: string;
 	id: string;
   }

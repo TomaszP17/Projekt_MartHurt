@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Select from "../../custom-components/select";
 import Form from "../../custom-components/form";
-import { Option, Quote } from "../types";
+import { Option, Quote } from "../../types";
 import Navbar from "../../custom-components/navbar";
 
 const options: Option[] = [

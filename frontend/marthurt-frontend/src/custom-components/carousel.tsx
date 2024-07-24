@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { LightingNews } from "../app/types";
+import { LightingNews } from "../types";
 import Autoplay from "embla-carousel-autoplay";
 
 import {
@@ -57,6 +57,10 @@ const CarouselSection: React.FC = () => {
           Nowości
         </h2>
         <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
           plugins={[
             Autoplay({
               delay: 2000,
@@ -69,17 +73,16 @@ const CarouselSection: React.FC = () => {
                 <div className="p-1">
                   <Card>
                     <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <h1>{product.imagesUrls}</h1>
                       {product.imagesUrls ? (
-                        <h1></h1>
+                        <div className="relative w-80 h-80 mx-auto">
+                          <Image
+                            layout="fill"
+                            objectFit="contain"
+                            src={product.imagesUrls}
+                            alt={product.imagesUrls}
+                          />
+                        </div>
                       ) : (
-                        // <Image
-                        //   layout="fill"
-                        //   objectFit="contain"
-                        //   src={product.imagesUrls[0]}
-                        //   alt={product.imagesNames}
-                        //   className="rounded-lg"
-                        // />
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center rounded-lg">
                           <span>No Image</span>
                         </div>

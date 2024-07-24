@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Option, FormData, Quote } from "../app/types";
+import { Option, FormData, Quote } from "../types";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 

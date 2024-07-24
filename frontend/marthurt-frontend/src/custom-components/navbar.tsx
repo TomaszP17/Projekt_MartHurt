@@ -14,7 +14,7 @@ export default function Navbar() {
   useEffect(() => {
     const link = document.createElement("link");
     link.href =
-      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200";
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"; // ni
     link.rel = "stylesheet";
     document.head.appendChild(link);
 
@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
+      <header className="flex h-20 w-full shrink-0 items-center px-6">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="lg:hidden">
