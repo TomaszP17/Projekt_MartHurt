@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,6 +55,11 @@ public class AuthController {
         this.userAuthorityRepository = userAuthorityRepository;
     }
 
+    /**
+     * Endpoint to log in on website, if user will login correctly there will be return dto with jwt token
+     * @param signInRequest username (string), password (string)
+     * @return DTO or HttpStatus.UN_Authorized
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody SignInRequest signInRequest){
         try {
@@ -63,7 +69,7 @@ public class AuthController {
             MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
             List<String> roles = userDetails.getAuthorities()
                     .stream()
-                    .map(item -> item.getAuthority())
+                    .map(GrantedAuthority::getAuthority)
                     .toList();
             JwtResponse res = new JwtResponse();
             res.setToken(jwt);
@@ -72,12 +78,16 @@ public class AuthController {
             res.setRoles(roles);
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Problem with authorization");
         }
     }
 
-
+    /**
+     * Endpoint to register on website and create account in db. Always save user role as 'ROLE_USER' only admin could
+     * change it on admin dashboard
+     * @param registerRequest username (String), email (String), password (String)
+     * @return information about register operation
+     */
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequestDTO registerRequest){
         if(userRepository.existsByUsername(registerRequest.getUsername())){
@@ -105,8 +115,10 @@ public class AuthController {
         myUser.setEmail(registerRequest.getEmail());
         myUser.setPassword(hashedPassword);
         myUser.setUserAuthorities(userAuthorities);
+
         userRepository.save(myUser);
         userAuthorityRepository.saveAll(userAuthorities);
+
         return ResponseEntity.ok("User registered successfully");
     }
 

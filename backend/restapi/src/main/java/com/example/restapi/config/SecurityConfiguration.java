@@ -28,8 +28,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     private final MyUserServiceImpl userDetailsService;
-    private AuthEntryPointJwt authEntryPointJwt;
-    private AuthTokenFilter authTokenFilter;
+    private final AuthEntryPointJwt authEntryPointJwt;
+    private final AuthTokenFilter authTokenFilter;
 
     public SecurityConfiguration(@Lazy MyUserServiceImpl userDetailsService,
                                  AuthEntryPointJwt authEntryPointJwt,
@@ -51,14 +51,9 @@ public class SecurityConfiguration {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        /*.requestMatchers("/users/**").permitAll() // Allow all requests to /api/users without authentication
-                        .anyRequest().authenticated()*/
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
-
-                /*.httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())*/
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

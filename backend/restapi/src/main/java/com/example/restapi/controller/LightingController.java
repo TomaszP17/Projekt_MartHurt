@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
-//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/lightings")
 public class LightingController {
@@ -25,7 +24,7 @@ public class LightingController {
         this.lightingService = lightingService;
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    /*@PreAuthorize("hasAuthority('ROLE_USER')")*/
     @GetMapping
     public ResponseEntity<List<LightingResponseDTO>> getLightings(
             @RequestParam(required = false) String sortBy,
@@ -77,9 +76,4 @@ public class LightingController {
     public ResponseEntity<List<LightingNamesResponseDTO>> getNewsLighting(){
         return ResponseEntity.ok(lightingService.getNewsLighting());
     }
-
-    /*@GetMapping("/shopping-cart")
-    public ResponseEntity<?> getLightingFromShoppingCart(){
-        return null;
-    }*/
 }
