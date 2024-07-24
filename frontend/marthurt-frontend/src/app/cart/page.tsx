@@ -1,9 +1,9 @@
 import React from "react";
-import ProductsGrid from "../../custom-components/productsGrid";
+import Cart from "../../custom-components/cart";
 export default function page() {
   return (
     <>
-      <ProductsGrid />
+      <Cart />
     </>
   );
 }

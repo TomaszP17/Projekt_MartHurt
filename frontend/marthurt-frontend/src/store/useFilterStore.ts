@@ -1,5 +1,5 @@
 // src/store/useFilterStore.ts
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface FilterState {
   priceFrom: number;

@@ -1,5 +1,5 @@
 // src/store/useCartStore.ts
-import create from 'zustand';
+import {create} from 'zustand';
 
 // Define the interface for a cart item
 interface CartItem {
