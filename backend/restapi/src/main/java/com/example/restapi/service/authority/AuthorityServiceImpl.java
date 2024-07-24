@@ -26,7 +26,7 @@ public class AuthorityServiceImpl implements AuthorityService {
                 .stream()
                 .map(e -> new AuthorityResponseDTO(
                         e.getId(),
-                        e.getAuthorityName(),
+                        e.getName().toString(),
                         e.getUserAuthorities()
                                 .stream()
                                 .map(myUserAuthority -> myUserAuthority.getUser().getId())
@@ -36,29 +36,44 @@ public class AuthorityServiceImpl implements AuthorityService {
 
     @Override
     public AuthorityResponseDTO getAuthorityById(int authorityId) throws AuthorityNotFoundException {
+        return null;
+    }
+
+    /*@Override
+    public AuthorityResponseDTO getAuthorityById(int authorityId) throws AuthorityNotFoundException {
         Authority authority = findAuthorityByIdOrThrow(authorityId);
         return getAuthorityResponseDTO(authority);
+    }*/
+
+    @Override
+    public AuthorityResponseDTO updateAuthority(int authorityId, AuthorityRequestDTO requestDTO) throws AuthorityNotFoundException {
+        return null;
     }
 
     @Override
-    public AuthorityResponseDTO addAuthority(AuthorityRequestDTO requestDTO) {
+    public void deleteAuthority(int authorityId) throws AuthorityNotFoundException {
 
-        //need to check if authority with that name exists in db, because we dont want two roles with same name
-        Authority existingAuthority = authorityRepository.findByAuthority(requestDTO.getAuthorityName());
-
-        if(existingAuthority != null){
-            throw new IllegalArgumentException("Authority with this name already exists");
-        }
-
-        Authority authority = new Authority();
-        authority.setAuthority(requestDTO.getAuthorityName());
-
-        Authority savedAuthority = authorityRepository.save(authority);
-
-        return getAuthorityResponseDTO(savedAuthority);
     }
 
-    @Override
+//    @Override
+//    public AuthorityResponseDTO addAuthority(AuthorityRequestDTO requestDTO) {
+//
+//        //need to check if authority with that name exists in db, because we dont want two roles with same name
+//        Authority existingAuthority = authorityRepository.findByName(requestDTO.getAuthorityName());
+//
+//        if(existingAuthority != null){
+//            throw new IllegalArgumentException("Authority with this name already exists");
+//        }
+//
+//        Authority authority = new Authority();
+//        authority.setAuthority(requestDTO.getAuthorityName());
+//
+//        Authority savedAuthority = authorityRepository.save(authority);
+//
+//        return getAuthorityResponseDTO(savedAuthority);
+//    }
+
+    /*@Override
     public AuthorityResponseDTO updateAuthority(int authorityId,
                                                 AuthorityRequestDTO requestDTO) throws AuthorityNotFoundException {
 
@@ -93,7 +108,7 @@ public class AuthorityServiceImpl implements AuthorityService {
                             .collect(Collectors.toSet())
             );
         }
-    }
+    }*/
 
     private Authority findAuthorityByIdOrThrow(int authorityId) throws AuthorityNotFoundException {
         return authorityRepository

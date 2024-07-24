@@ -9,13 +9,13 @@ import com.example.restapi.exceptions.FoundMoreThanOneUserException;
 import com.example.restapi.repository.AuthorityRepository;
 import com.example.restapi.repository.MyUserAuthorityRepository;
 import com.example.restapi.repository.MyUserRepository;
+import com.example.restapi.security.MyUserDetails;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +51,7 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
                         e.getPassword(),
                         e.isEnabled(),
                         e.getUserAuthorities().stream()
-                                .map(auth -> auth.getAuthority().getAuthority())
+                                .map(auth -> auth.getAuthority().getName())
                                 .collect(Collectors.toSet())))
                 .collect(Collectors.toList());
 
@@ -67,7 +67,7 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
                 user.isEnabled(),
                 user.getUserAuthorities()
                         .stream()
-                        .map(auth -> auth.getAuthority().getAuthorityName())
+                        .map(auth -> auth.getAuthority().getName())
                         .collect(Collectors.toSet())
         );
     }
@@ -99,7 +99,7 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
         savedUser.setUserAuthorities(userAuthorities);
 
         return new UserResponseDTO(savedUser.getUsername(), savedUser.getPassword(), savedUser.isEnabled(),
-                authorities.stream().map(Authority::getAuthority).collect(Collectors.toSet()));
+                authorities.stream().map(Authority::getName).collect(Collectors.toSet()));
     }
 
     @Transactional
@@ -128,29 +128,24 @@ public class MyUserServiceImpl implements UserDetailsService, MyUserService {
         // Delete user
         myUserRepository.delete(user);
     }
-
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<MyUser> user = myUserRepository.findByUsername(username);
-
-        if(user.isPresent()){
-            MyUser userObj = user.get();
-            return User.builder()
-                    .username(userObj.getUsername())
-                    .password(userObj.getPassword())
-                    .roles(getRoles(userObj))
-                    .build();
-        } else {
-            throw new UsernameNotFoundException(username);
+        MyUser user = myUserRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
+        System.out.println(user);
+        return new MyUserDetails(user);
     }
 
-    private String[] getRoles(MyUser user) {
-        if (user.getUserAuthorities() == null) {
-            return new String[]{"USER"};
-        }
-        return user.getUserAuthorities().stream()
-                .map(e -> e.getAuthority().getAuthorityName())
-                .toArray(String[]::new);
-    }
+//    private String[] getRoles(MyUser user) {
+//        if (user.getUserAuthorities() == null) {
+//            return new String[]{"USER"};
+//        }
+//        return user.getUserAuthorities().stream()
+//                .map(e -> e.getAuthority().getName())
+//                .toArray(String[]::new);
+//    }
+
 }

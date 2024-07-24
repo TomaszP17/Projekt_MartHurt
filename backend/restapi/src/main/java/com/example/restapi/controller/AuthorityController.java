@@ -41,14 +41,14 @@ public class AuthorityController {
         
     }
 
-    @PostMapping
-    public ResponseEntity<?> addAuthority(@RequestBody AuthorityRequestDTO requestDTO){
-        try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(authorityService.addAuthority(requestDTO));
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<?> addAuthority(@RequestBody AuthorityRequestDTO requestDTO){
+//        try{
+//            return ResponseEntity.status(HttpStatus.CREATED).body(authorityService.addAuthority(requestDTO));
+//        }catch (IllegalArgumentException e){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        }
+//    }
 
     @PutMapping("/{authorityId}")
     public ResponseEntity<?> updateAuthority(@PathVariable int authorityId,

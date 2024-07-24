@@ -1,10 +1,8 @@
 package com.example.restapi.entity.users;
 
+import com.example.restapi.enums.RoleType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -14,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class Authority {
 
     @Id
@@ -21,13 +20,14 @@ public class Authority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "authority", length = 50, nullable = false)
-    private String authority;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "name", nullable = false)
+    private RoleType name;
 
     @OneToMany(mappedBy = "authority", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<MyUserAuthority> userAuthorities;
 
-    public String getAuthorityName() {
+    /*public String getAuthorityName() {
         return authority;
-    }
+    }*/
 }

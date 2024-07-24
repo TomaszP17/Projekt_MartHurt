@@ -8,12 +8,13 @@ import com.example.restapi.exceptions.LightingNotFoundException;
 import com.example.restapi.helpers.ComparatorHelpers;
 import com.example.restapi.service.lighting.LightingService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/lightings")
 public class LightingController {
@@ -24,6 +25,7 @@ public class LightingController {
         this.lightingService = lightingService;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping
     public ResponseEntity<List<LightingResponseDTO>> getLightings(
             @RequestParam(required = false) String sortBy,

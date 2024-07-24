@@ -9,7 +9,7 @@ import java.util.List;
 public interface AuthorityService {
     List<AuthorityResponseDTO> getAuthorities();
 
-    AuthorityResponseDTO addAuthority(AuthorityRequestDTO requestDTO);
+//    AuthorityResponseDTO addAuthority(AuthorityRequestDTO requestDTO);
 
     AuthorityResponseDTO getAuthorityById(int authorityId) throws AuthorityNotFoundException;
 
