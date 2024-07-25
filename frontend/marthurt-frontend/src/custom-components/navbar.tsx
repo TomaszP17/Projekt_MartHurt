@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import React, { useEffect } from "react";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
@@ -7,16 +8,34 @@ import { Input } from "@/components/ui/input";
 import { useCartStore } from "@/store/useCartStore";
 import { CartButton } from "./CartButton";
 import { ShoppingCart } from "lucide-react";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function Navbar() {
   const { totalItems } = useCartStore();
+  const { token } = useAuthStore();
+=======
+'use client'
 
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"; // ni
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
+import React, { useEffect, useState } from 'react'
+import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { Input } from '@/components/ui/input'
+import { useCartStore } from '@/store/useCartStore'
+import { CartButton } from './CartButton'
+import { Dialog } from '@headlessui/react'
+
+export default function Navbar() {
+	const { totalItems } = useCartStore()
+	const [isCartOpen, setIsCartOpen] = useState(false)
+>>>>>>> e069e4aa1f9949bd68ac6084cbbad6ae0b6f551c
+
+	const toggleCart = () => {
+		setIsCartOpen(prev => !prev)
+	}
+
+<<<<<<< HEAD
+    console.log(token);
 
     return () => {
       document.head.removeChild(link);
@@ -95,12 +114,16 @@ export default function Navbar() {
             />
           </div>
           <CartButton />
-          <Button
-            variant={`outline`}
-            className="px-4 py-2 rounded-md hover:bg-black hover:text-white"
-          >
-            Zaloguj się
-          </Button>
+          {token === null ? (
+            <Button
+              variant={`outline`}
+              className="px-4 py-2 rounded-md hover:bg-black hover:text-white"
+            >
+              Zaloguj się
+            </Button>
+          ) : (
+            <h1>Witaj użytkownik!</h1>
+          )}
         </div>
       </header>
       <hr className="border-gray-300" />
@@ -109,42 +132,40 @@ export default function Navbar() {
 }
 
 function MenuIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
-  );
+	return (
+		<svg
+			{...props}
+			xmlns='http://www.w3.org/2000/svg'
+			width='24'
+			height='24'
+			viewBox='0 0 24 24'
+			fill='none'
+			stroke='currentColor'
+			strokeWidth='2'
+			strokeLinecap='round'
+			strokeLinejoin='round'>
+			<line x1='4' x2='20' y1='12' y2='12' />
+			<line x1='4' x2='20' y1='6' y2='6' />
+			<line x1='4' x2='20' y1='18' y2='18' />
+		</svg>
+	)
 }
 
 function SearchIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.3-4.3" />
-    </svg>
-  );
+	return (
+		<svg
+			{...props}
+			xmlns='http://www.w3.org/2000/svg'
+			width='24'
+			height='24'
+			viewBox='0 0 24 24'
+			fill='none'
+			stroke='currentColor'
+			strokeWidth='2'
+			strokeLinecap='round'
+			strokeLinejoin='round'>
+			<circle cx='11' cy='11' r='8' />
+			<path d='m21 21-4.3-4.3' />
+		</svg>
+	)
 }

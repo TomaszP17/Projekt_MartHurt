@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardHeader,
@@ -12,57 +13,102 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { register, login } from "@/services/authService";
+import useAuthStore from "@/store/useAuthStore";
 
 interface AuthenticationProps {
-  register: boolean;
+  isRegister: boolean;
 }
 
-export default function Authentication({ register }: AuthenticationProps) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+export default function Authentication({ isRegister }: AuthenticationProps) {
+  const router = useRouter();
+  const authLogin = useAuthStore((state) => state.login);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [registerState, setRegisterState] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [loginState, setLoginState] = useState({
+    username: "",
+    password: "",
+  });
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    if (isRegister) {
+      setRegisterState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else {
+      setLoginState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Logic for form submission will be implemented on the backend
-  };
+
+    try {
+      if (isRegister) {
+        await register(
+          registerState.username,
+          registerState.email,
+          registerState.password
+        );
+        alert("User registered");
+        router.push("/login");
+      } else {
+        const res = await login(loginState.username, loginState.password);
+        authLogin(res.token);
+        router.push("/");
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+    }
+  }
 
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl">
-          {register ? "Zarejestruj się" : "Zaloguj się"}
+          {isRegister ? "Zarejestruj się" : "Zaloguj się"}
         </CardTitle>
         <CardDescription>
-          {register
+          {isRegister
             ? "Wpisz dane, aby się zarejestrować"
             : "Wpisz swój email i hasło, aby się zalogować"}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="grid gap-4">
-          {register && (
+          {isRegister && (
             <div className="grid gap-2">
-              <Label htmlFor="username">Nazwa użytkownika</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Twoja nazwa użytkownika"
+                id="email"
+                name="email"
+                type="email"
+                value={registerState.email}
+                onChange={handleChange}
+                placeholder="m@mail.com"
                 required
               />
             </div>
           )}
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="username">Nazwa użytkownika</Label>
             <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="m@mail.com"
+              id="username"
+              name="username"
+              type="text"
+              value={isRegister ? registerState.username : loginState.username}
+              onChange={handleChange}
+              placeholder="Twoja nazwa użytkownika"
               required
             />
           </div>
@@ -70,33 +116,19 @@ export default function Authentication({ register }: AuthenticationProps) {
             <Label htmlFor="password">Hasło</Label>
             <Input
               id="password"
+              name="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={isRegister ? registerState.password : loginState.password}
+              onChange={handleChange}
               required
             />
           </div>
-          {register && (
-            <div className="grid gap-2">
-              <Label htmlFor="confirmPassword">Potwierdź hasło</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-          )}
           <Button type="submit" className="w-full">
-            {register ? "Zarejestruj się" : "Zaloguj się"}
-          </Button>
-          <Button variant="outline" className="w-full">
-            {register ? "Zarejestruj się" : "Zaloguj się"} z Google
+            {isRegister ? "Zarejestruj się" : "Zaloguj się"}
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">
-          {register ? (
+          {isRegister ? (
             <>
               Masz już konto?{" "}
               <Link href="/login" className="underline" prefetch={false}>

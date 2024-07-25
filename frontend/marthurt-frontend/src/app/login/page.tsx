@@ -4,7 +4,7 @@ import AuthenticationContainer from "@/containers/authenticationContainer";
 export default function Login() {
   return (
     <>
-      <AuthenticationContainer />
+      <AuthenticationContainer isRegister={false} />
     </>
   );
 }

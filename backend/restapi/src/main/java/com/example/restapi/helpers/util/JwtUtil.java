@@ -4,6 +4,7 @@ import com.example.restapi.security.MyUserDetails;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,11 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private String jwtSecret = "MySecret696969696969nauihfajakmebMySecret696969696969nauihfajakmebMySecret696969696969nauihfajakmebMySecret696969696969nauihfajakmeb";
+    @Value("${restapi.app.jwtSecret}")
+    private String jwtSecret;
 
-    private int jwtExpirationMs = 86400000;
+    @Value("${restapi.app.jwtExpirationMs}")
+    private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication){
         MyUserDetails userPrincipal = (MyUserDetails) authentication.getPrincipal();
