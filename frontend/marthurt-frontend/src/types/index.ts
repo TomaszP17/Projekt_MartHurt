@@ -33,16 +33,19 @@ export interface Quote {
 }
 
 export interface Lighting {
-	urlImages: string[];
-	productName: string;
-	productId: string;
-	supplierName: string;
+	urlImages: string[]
+	productName: string
+	productId: string
+	supplierName: string
 }
 
-
 export interface LightingNews {
-	imagesUrls?: string | null;
-	imagesNames: string;
-	id: string;
-  }
-  
+	imagesUrls?: string | null
+	imagesNames: string
+	id: string
+}
+
+export interface Comment {
+	id: number
+	text: string
+}
