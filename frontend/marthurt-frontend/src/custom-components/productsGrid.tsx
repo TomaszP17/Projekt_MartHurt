@@ -22,6 +22,7 @@ import { useSearchStore } from "@/store/useSearchStore";
 import { Badge } from "@/components/ui/badge";
 import dynamic from "next/dynamic";
 import { Input } from "@/components/ui/input";
+import api from "@/services/api";
 
 const ProductsGrid: React.FC = () => {
   const [products, setProducts] = useState<Lighting[]>([]);
@@ -44,7 +45,7 @@ const ProductsGrid: React.FC = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:8080/lightings", {
+        const res = await api.get("http://localhost:8080/lightings", {
           params: {
             priceFrom,
             priceTo,
@@ -54,7 +55,6 @@ const ProductsGrid: React.FC = () => {
             lightingSearch: searchBy,
           },
         });
-        console.log(res.request);
         setProducts(res.data);
       } catch (err) {
         console.error("Error fetching products:", err);

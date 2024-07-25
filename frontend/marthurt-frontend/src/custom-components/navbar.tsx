@@ -1,12 +1,14 @@
-'use client'
-
+"use client";
+import useAuthStore from "@/store/useAuthStore";
 import React, { useEffect, useState } from 'react'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { useCartStore } from '@/store/useCartStore'
 import { CartButton } from './CartButton'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+
+
 
 export default function Navbar() {
 	const { totalItems } = useCartStore()
@@ -28,10 +30,10 @@ export default function Navbar() {
 		link.rel = 'stylesheet'
 		document.head.appendChild(link)
 
-		return () => {
-			document.head.removeChild(link)
-		}
-	}, [])
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
 
 	return (
 		<>
@@ -175,7 +177,7 @@ export default function Navbar() {
 				</SheetContent>
 			</Sheet>
 		</>
-	)
+  );
 }
 
 function MenuIcon(props: any) {
