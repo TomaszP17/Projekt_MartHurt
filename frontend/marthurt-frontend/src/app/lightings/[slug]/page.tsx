@@ -145,7 +145,9 @@ export default function Page() {
           <Button className="w-full md:w-auto">Kup</Button>
         </div>
       </Card>
-      {product.comments && <Comments comments={product.comments} />}
+      {product.comments && (
+        <Comments comments={product.comments} productId={slug.toString()} />
+      )}
     </main>
   );
 }

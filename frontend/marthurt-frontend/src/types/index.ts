@@ -47,5 +47,5 @@ export interface LightingNews {
 
 export interface Comment {
 	id: number
-	text: string
+	message: string
 }

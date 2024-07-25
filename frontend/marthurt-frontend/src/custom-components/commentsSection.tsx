@@ -10,17 +10,16 @@ import {
 
 import { Button } from "@/components/ui/button";
 import api from "@/services/api";
-
-interface Comment {
-  id: number;
-  text: string;
-}
+import { Comment } from "@/types";
+import Cookies from "js-cookie";
 
 interface CommentsProps {
+  productId: string;
   comments: Comment[];
 }
 
-const CommentsSection: React.FC<CommentsProps> = ({ comments }) => {
+const CommentsSection: React.FC<CommentsProps> = ({ productId, comments }) => {
+  const [commentsState, setCommentsState] = useState<Comment[]>(comments);
   const [isAddingComment, setIsAddingComment] = useState<boolean>(false);
   const [newComment, setNewComment] = useState<string>("");
 
@@ -29,40 +28,37 @@ const CommentsSection: React.FC<CommentsProps> = ({ comments }) => {
   };
 
   const handleAddComment = async () => {
-    if (newComment.trim() !== "") {
-      try {
-        const response = await fetch("/comments", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            text: newComment,
-          }),
-        });
+    const employeeId = parseInt(Cookies.get("userId"), 10); // Konwersja userId na liczbę
 
-        if (response.ok) {
-          const newCommentObj = await response.json();
-          // This should ideally add the new comment to the parent state
-          // Assuming the parent component has a method to add comments
-          // setComments([...comments, newCommentObj]);
-          setNewComment("");
-        } else {
-          const errorMessage = await response.text();
-          alert(`Nie udało się dodać komentarza: ${errorMessage}`);
-        }
-      } catch (error) {
-        console.error("Error adding comment:", error);
-        alert("Wystąpił błąd podczas dodawania komentarza.");
+    try {
+      const response = await api.post("/comments", {
+        employeeId: employeeId,
+        productId: productId,
+        message: newComment,
+      });
+
+      if (response.status === 200) {
+        const newCommentObj = response.data;
+        console.log("Komentarz został dodany:", newCommentObj);
+        setCommentsState((prevComments) => [...prevComments, newCommentObj]);
+        setNewComment(""); // Resetuje pole dodawania komentarza
+        setIsAddingComment(false); // Zamyka pole dodawania komentarza
+      } else {
+        // console.error(`Błąd dodawania komentarza: ${response.statusText}`);
+        // alert(`Nie udało się dodać komentarza: ${response.statusText}`);
       }
+    } catch (error) {
+      // console.error("Error adding comment:", error);
+      // alert("Wystąpił błąd podczas dodawania komentarza.");
     }
-    setIsAddingComment(false);
   };
 
   const handleDeleteComment = async (commentId: number) => {
     try {
       await api.delete(`/comments/${commentId}`);
-     
+      setCommentsState((prevComments) =>
+        prevComments.filter((comment) => comment.id !== commentId)
+      );
     } catch (error) {
       console.error("Error deleting comment:", error);
       alert("Wystąpił błąd podczas usuwania komentarza.");
@@ -81,10 +77,10 @@ const CommentsSection: React.FC<CommentsProps> = ({ comments }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {comments.map((comment, index) => (
+          {commentsState.map((comment, index) => (
             <TableRow key={comment.id}>
               <TableCell>{index + 1}</TableCell>
-              <TableCell>{comment.text}</TableCell>
+              <TableCell>{comment.message}</TableCell>
               <TableCell>
                 <Button
                   onClick={() => handleDeleteComment(comment.id)}

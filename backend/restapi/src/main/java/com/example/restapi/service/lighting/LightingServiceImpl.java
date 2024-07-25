@@ -1,5 +1,6 @@
 package com.example.restapi.service.lighting;
 
+import com.example.restapi.dto.response.comment.CommentLightingDataResponseDTO;
 import com.example.restapi.dto.response.lighting.*;
 import com.example.restapi.entity.Comment;
 import com.example.restapi.entity.products.Image;
@@ -74,7 +75,7 @@ public class LightingServiceImpl implements LightingService{
                     lighting.getProduct().getAvailability(),
                     lighting.getProduct().getProductShops().stream().map(productShop -> productShop.getShop().getName()).collect(Collectors.toSet()),
                     lighting.getProduct().getImages().stream().map(Image::getUrl).collect(Collectors.toSet()),
-                    lighting.getProduct().getComments().stream().map(Comment::getMessage).collect(Collectors.toList())
+                    lighting.getProduct().getComments().stream().map(e -> new CommentLightingDataResponseDTO(e.getId(), e.getMessage())).toList()
             );
         } else {
             return new LightingFullResponseDTO(
