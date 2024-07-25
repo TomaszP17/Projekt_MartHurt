@@ -1,18 +1,24 @@
 package com.example.restapi.dto.response.lighting;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.Set;
 
-public record LightingFullResponseDTO(
-    String id,
-    String productMarkingsName,
-    String supplierName,
-    String productName,
-    BigDecimal nettoClientBuyPrice,
-    BigDecimal bruttoClientBuyPrice,
-    String description,
-    String availability,
-    Set<String> shopsNames,
-    Set<String> images
-) {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class LightingFullResponseDTO{
+    private String id;
+    private String productMarkingsName;
+    private String supplierName;
+    private String productName;
+    private BigDecimal nettoClientBuyPrice;
+    private BigDecimal bruttoClientBuyPrice;
+    private String description;
+    private String availability;
+    private Set<String> shopsNames;
+    private Set<String> images;
 }

@@ -56,6 +56,7 @@ public class LightingController {
         return ResponseEntity.ok(result);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("{lightingId}")
     public ResponseEntity<LightingFullResponseDTO> getLighting(@PathVariable String lightingId){
         try {

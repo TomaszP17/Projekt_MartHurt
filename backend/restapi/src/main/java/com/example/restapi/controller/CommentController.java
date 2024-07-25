@@ -27,6 +27,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getAllComments());
     }
 
+
     @PostMapping
     public ResponseEntity<?> addCommentToProduct(@RequestBody AddCommentRequestDTO commentRequestDTO){
         try {
