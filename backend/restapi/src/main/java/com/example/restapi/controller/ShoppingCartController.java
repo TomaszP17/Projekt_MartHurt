@@ -4,10 +4,7 @@ import com.example.restapi.dto.response.shoppingcart.ShoppingCartDTO;
 import com.example.restapi.dto.response.shoppingcart.ShoppingCartProductDTO;
 import com.example.restapi.service.shoppingcart.ShoppingCartService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,4 +46,6 @@ public class ShoppingCartController {
     public ResponseEntity<List<ShoppingCartProductDTO>> getProductsInShoppingCart(@PathVariable int shoppingCartId){
         return ResponseEntity.ok(shoppingCartService.getProductsInShoppingCart(shoppingCartId));
     }
+
+
 }

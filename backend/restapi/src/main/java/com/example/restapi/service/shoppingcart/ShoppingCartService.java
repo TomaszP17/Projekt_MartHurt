@@ -22,4 +22,6 @@ public interface ShoppingCartService {
 
     List<ShoppingCartProductDTO> getProductsInShoppingCart(int shoppingCardId);
 
+    //void createShoppingCart();
+
 }
