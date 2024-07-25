@@ -21,11 +21,27 @@ export const login = async (username: string, password: string) => {
   if (response.data.token) {
     Cookies.set('token', response.data.token, { secure: true, sameSite: 'strict' });
   }
+
+  if (response.data.id){
+    Cookies.set('userId', response.data.id, { secure: true, sameSite: 'strict' });
+  }
+
+  if (response.data.username){
+    Cookies.set('username', response.data.username, { secure: true, sameSite: 'strict' });
+  }
+
+  if (response.data.roles){
+    Cookies.set('userRoles', response.data.roles, { secure: true, sameSite: 'strict' });
+  }
+
   return response.data;
 };
 
 export const logout = () => {
   Cookies.remove('token');
+  Cookies.remove('userId');
+  Cookies.remove('username');
+  Cookies.remove('userRoles');
 };
 
 export const getCurrentUser = async () => {

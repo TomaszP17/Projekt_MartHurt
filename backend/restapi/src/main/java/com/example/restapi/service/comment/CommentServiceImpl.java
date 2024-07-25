@@ -41,6 +41,7 @@ public class CommentServiceImpl implements CommentService{
     public CommentResponseDTO addCommentToProduct(AddCommentRequestDTO commentRequestDTO)
             throws ProductDoesNotExistsException, EmployeeDoesNotExistsException {
 
+
         Product product = productRepository
                 .findById(commentRequestDTO.getProductId())
                 .orElseThrow(() -> new ProductDoesNotExistsException("Product with that Id: " + commentRequestDTO.getProductId() + " does not exists"));

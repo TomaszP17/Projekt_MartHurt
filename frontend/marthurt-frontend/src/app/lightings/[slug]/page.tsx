@@ -22,7 +22,8 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import api from "@/services/api";
-import Comments from "@/custom-components/comments";
+import { Comment } from "@/types";
+import Comments from "@/custom-components/commentsSection";
 
 interface Lighting {
   id: string;
@@ -34,7 +35,7 @@ interface Lighting {
   description: string;
   availability: string;
   images: string[];
-  comments?: string[];
+  comments?: Comment[];
 }
 
 export default function Page() {
@@ -144,7 +145,9 @@ export default function Page() {
           <Button className="w-full md:w-auto">Kup</Button>
         </div>
       </Card>
-      {product.comments && <Comments comments={product.comments} />}
+      {product.comments && (
+        <Comments comments={product.comments} productId={slug.toString()} />
+      )}
     </main>
   );
 }
