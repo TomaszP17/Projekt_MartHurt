@@ -55,7 +55,6 @@ const ProductsGrid: React.FC = () => {
             lightingSearch: searchBy,
           },
         });
-        console.log(res);
         setProducts(res.data);
       } catch (err) {
         console.error("Error fetching products:", err);
@@ -145,7 +144,7 @@ const ProductsGrid: React.FC = () => {
         </div>
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-8">
-        {products.map((lighting) => (
+        {products.map((lighting, index) => (
           <Card
             key={lighting.productId}
             className="drop-shadow-md cursor-pointer transition-transform transform hover:scale-[1.02] duration-400"
@@ -153,11 +152,14 @@ const ProductsGrid: React.FC = () => {
             <CardHeader>
               <div className="relative w-40 h-40 mx-auto">
                 <Image
-                  layout="fill"
-                  objectFit="contain"
-                  loader={() => lighting.urlImages[0]}
+                  fill
+                  sizes="(max-width: 768px) 100vw,
+                        (max-width: 1200px) 50vw,
+                        33vw"
+                  priority={index < 3}
                   src={lighting.urlImages[0]}
                   alt={lighting.productName}
+                  className="object-contain"
                 />
               </div>
               <CardTitle>{lighting.supplierName}</CardTitle>

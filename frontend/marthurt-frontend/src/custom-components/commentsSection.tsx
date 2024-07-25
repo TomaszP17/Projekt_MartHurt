@@ -28,7 +28,7 @@ const CommentsSection: React.FC<CommentsProps> = ({ productId, comments }) => {
   };
 
   const handleAddComment = async () => {
-    const employeeId = parseInt(Cookies.get("userId"), 10); // Konwersja userId na liczbę
+    const employeeId = parseInt(Cookies.get("userId"), 10);
 
     try {
       const response = await api.post("/comments", {

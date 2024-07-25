@@ -8,10 +8,19 @@ import { Input } from "@/components/ui/input";
 import { useCartStore } from "@/store/useCartStore";
 import { CartButton } from "./CartButton";
 import { Dialog } from "@headlessui/react";
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const { totalItems } = useCartStore();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
+
+  useEffect(() => {
+    const roles = Cookies.get("userRoles");
+    if (roles && roles.includes("ROLE_ADMIN")) {
+      setIsEmployee(true);
+    }
+  }, []);
 
   const toggleCart = () => {
     setIsCartOpen((prev) => !prev);
@@ -98,7 +107,7 @@ export default function Navbar() {
             />
           </div>
           {/* CartButton now correctly toggles the cart */}
-          <CartButton toggleCart={toggleCart} />
+          {isEmployee && <CartButton toggleCart={toggleCart} />}
           <Link href="/register">
             <Button
               variant="outline"
