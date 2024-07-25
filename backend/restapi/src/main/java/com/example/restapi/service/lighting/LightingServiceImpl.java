@@ -26,9 +26,10 @@ public class LightingServiceImpl implements LightingService{
 
     @Override
     public List<LightingResponseDTO> getAllLighting() {
-        return lightingRepository.findAll().stream()
+        return lightingRepository.findAllWithProductsAndImages()
+                .stream()
                 .map(this::convertToDTO)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

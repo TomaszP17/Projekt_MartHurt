@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface LightingRepository extends JpaRepository<Lighting, String> {
 
+    @Query("SELECT l FROM Lighting l JOIN FETCH l.product p LEFT JOIN FETCH p.images")
+    List<Lighting> findAllWithProductsAndImages();
+
     @Query("SELECT l FROM Lighting l JOIN l.product p ORDER BY p.dateAdded DESC")
     Page<Lighting> findTopByOrderByProductDateAddedDesc(Pageable pageable);
 
