@@ -109,20 +109,7 @@ const ProductsGrid: React.FC = () => {
 
   return (
     <main className="xl:px-52 px-5">
-      <div className="flex flex-col md:flex-row gap-x-5 mb-5 items-center gap-y-2 md:gap-y-0">
-        <Input
-          type="text"
-          placeholder="Szukaj produktów..."
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 w-full md:w-auto"
-          onChange={handleSearchInputChange}
-        />
-        <Button
-          onClick={() => setSearchBy(search)}
-          type="submit"
-          className="w-full md:w-auto"
-        >
-          Szukaj
-        </Button>
+      <div className="flex flex-col md:flex-row gap-x-5 mb-5 items-center gap-y-2 md:gap-y-0 mt-5">
         <div className="w-full md:w-auto">
           <Filter />
         </div>

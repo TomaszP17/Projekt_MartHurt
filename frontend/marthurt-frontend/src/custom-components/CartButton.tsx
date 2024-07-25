@@ -22,12 +22,6 @@ export function CartButton({ toggleCart }: CartButtonProps) {
 					<span className='ml-1'>Koszyk ({totalItems})</span>
 				</Button>
 			</HoverCardTrigger>
-			<HoverCardContent className='w-64'>
-				<div className='p-4'>
-					<h4 className='text-sm font-semibold'>Koszyk</h4>
-					<p className='text-sm'>Masz {totalItems} przedmiotów w koszyku.</p>
-				</div>
-			</HoverCardContent>
 		</HoverCard>
 	)
 }

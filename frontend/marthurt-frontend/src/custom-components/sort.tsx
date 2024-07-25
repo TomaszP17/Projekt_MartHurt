@@ -14,21 +14,13 @@ import {
 
 // Define the type for sortOptions keys
 type SortOptionKey =
-  | "productName asc"
-  | "productName desc"
-  | "price asc"
-  | "price desc"
-  | "supplierName asc"
-  | "supplierName desc";
+  | "dateAdded asc"
+  | "dateAdded desc"
 
 // Mapping between sortBy values and their labels
 const sortOptions: Record<SortOptionKey, string> = {
-  "productName asc": "Nazwa produktu A-Z",
-  "productName desc": "Nazwa produktu Z-A",
-  "price asc": "Od najniższej Ceny",
-  "price desc": "Od najwyższej Ceny",
-  "supplierName asc": "Nazwa producenta A-Z",
-  "supplierName desc": "Nazwa producenta Z-A",
+  "dateAdded asc": "Najnowsze produkty",
+  "dateAdded desc": "Najstarsze produkty",
 };
 
 const Sort: React.FC = () => {
