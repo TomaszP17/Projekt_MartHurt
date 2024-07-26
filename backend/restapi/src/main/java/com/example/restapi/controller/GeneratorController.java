@@ -1,7 +1,7 @@
 package com.example.restapi.controller;
 
 import com.example.restapi.dto.request.PdfRequest;
-import com.example.restapi.helpers.IPDFGenerator;
+import com.example.restapi.helpers.generator.IPDFGenerator;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -38,5 +38,4 @@ public class GeneratorController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(byteArrayInputStream));
     }
-
 }
