@@ -1,4 +1,4 @@
-package com.example.restapi.helpers;
+package com.example.restapi.helpers.generator;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

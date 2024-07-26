@@ -75,7 +75,6 @@ public class CommentServiceImpl implements CommentService{
         }
     }
 
-
     private CommentResponseDTO convertIntoDTO(Comment comment){
         return new CommentResponseDTO(
                 comment.getId(),

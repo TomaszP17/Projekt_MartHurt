@@ -7,4 +7,6 @@ public enum RoleType {
     ROLE_DRIVER,
     ROLE_WAREHOUSEMAN,
     ROLE_USER,
+
+
 }

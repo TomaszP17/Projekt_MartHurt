@@ -24,7 +24,6 @@ public class LightingController {
         this.lightingService = lightingService;
     }
 
-    /*@PreAuthorize("hasAuthority('ROLE_USER')")*/
     @GetMapping
     public ResponseEntity<List<LightingResponseDTO>> getLightings(
             @RequestParam(required = false) String sortBy,
