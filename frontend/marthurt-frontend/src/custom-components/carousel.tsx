@@ -6,6 +6,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { LightingNews } from "../types";
 import Autoplay from "embla-carousel-autoplay";
 import api from "@/services/api";
+import useScreenSize from "@/hooks/useScreenSize";
 
 import {
   Carousel,
@@ -25,6 +26,7 @@ const CarouselSection: React.FC = () => {
   const [products, setProducts] = useState<LightingNews[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const { width, height } = useScreenSize();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -52,7 +54,7 @@ const CarouselSection: React.FC = () => {
 
   return (
     <section id="newest-products" className="py-12 bg-gray-100">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 md:w-2/3">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
           Nowości
         </h2>
@@ -96,8 +98,12 @@ const CarouselSection: React.FC = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          {width >= 768 && (
+            <>
+              <CarouselPrevious />
+              <CarouselNext />
+            </>
+          )}
         </Carousel>
       </div>
     </section>
