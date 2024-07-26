@@ -1,6 +1,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { decodeToken, hasRole } from './utils/auth';
 
 
 export function middleware(req: NextRequest) {
@@ -11,11 +12,12 @@ export function middleware(req: NextRequest) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET) as any;
-    if (!decoded.roles.split(',').includes('ROLE_ADMIN')) {
-      return NextResponse.redirect('/unauthorized');
+    const decoded = decodeToken(token);
+    if (!hasRole(decoded, "ROLE_ADMIN") || !hasRole(decoded, "ROLE_ADMIN")) {
+      return NextResponse.redirect(new URL('/unauthorized', req.url))
     }
   } catch (error) {
+    console.error(error);
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
