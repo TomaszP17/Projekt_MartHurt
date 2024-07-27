@@ -129,7 +129,7 @@ export default function Example() {
 													type='button'
 													onClick={() => setOpen(false)}
 													className='font-medium text-indigo-600 hover:text-indigo-500'>
-													Kontynuuj Zakupy
+													Continue Shopping
 													<span aria-hidden='true'> &rarr;</span>
 												</button>
 											</p>

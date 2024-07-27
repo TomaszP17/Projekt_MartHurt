@@ -36,9 +36,7 @@ export interface Lighting {
 	urlImages: string[]
 	productName: string
 	productId: string
-	netto_buy_price: number
-	supplierName : string
-
+	supplierName: string
 }
 
 export interface LightingNews {
