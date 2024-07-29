@@ -16,8 +16,6 @@ export interface FormData {
 	nettoPrice: number
 	bruttoPrice: number
 	quantity: number
-	bruttoPriceWithDiscount: number
-	totalValueAfterDiscount: number
 }
 
 export interface Quote {
@@ -37,8 +35,9 @@ export interface Lighting {
 	productName: string
 	productId: string
 	netto_buy_price: number
-	supplierName : string
-
+	supplierName: string
+	bruttoClientBuyPrice: number
+	dateAdded: string
 }
 
 export interface LightingNews {

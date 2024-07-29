@@ -42,8 +42,6 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
 				nettoPrice: 120,
 				bruttoPrice: 100,
 				quantity: 2,
-				bruttoPriceWithDiscount: 90,
-				totalValueAfterDiscount: 180,
 			},
 			{
 				name: 'Produkt 2',
@@ -52,8 +50,6 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
 				nettoPrice: 240,
 				bruttoPrice: 200,
 				quantity: 1,
-				bruttoPriceWithDiscount: 180,
-				totalValueAfterDiscount: 180,
 			},
 		]
 		setFormData(cartData)
@@ -100,6 +96,8 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
 		}
 	}
 
+	const totalNettoPrice = formData.reduce((total, item) => total + item.nettoPrice * item.quantity, 0)
+
 	return (
 		<div className='mt-5 w-4/5 mx-auto'>
 			<p className='mb-4'>Wybrany Sklep: {selectedValue?.label}</p>
@@ -111,10 +109,8 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
 						<TableHead>Zdjęcie</TableHead>
 						<TableHead>Opis</TableHead>
 						<TableHead>Cena netto</TableHead>
-						<TableHead>Cena brutto /m²</TableHead>
-						<TableHead>sztuka</TableHead>
-						<TableHead>Cena brutto po rabacie</TableHead>
-						<TableHead>Wartość łączna po rabacie</TableHead>
+						<TableHead>Cena brutto</TableHead>
+						<TableHead>ilość</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -136,8 +132,6 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
 							<TableCell className='text-center'>{item.nettoPrice}</TableCell>
 							<TableCell className='text-center'>{item.bruttoPrice}</TableCell>
 							<TableCell className='text-center'>{item.quantity}</TableCell>
-							<TableCell className='text-center'>{item.bruttoPriceWithDiscount}</TableCell>
-							<TableCell className='text-center'>{item.bruttoPriceWithDiscount * item.quantity}</TableCell>
 						</TableRow>
 					))}
 					<TableRow>
@@ -158,12 +152,11 @@ const Form: React.FC<FormProps> = ({ selectedValue }) => {
 				</TableBody>
 				<TableFooter>
 					<TableRow>
-						<TableCell className='text-right' colSpan={8}>
-							Razem
+						<TableCell className='text-right font-bold' colSpan={5}>
+							Razem (Netto):
 						</TableCell>
-						<TableCell className='text-center'>
-							{formData.reduce((total, item) => total + item.bruttoPriceWithDiscount * item.quantity, 0)}
-						</TableCell>
+						<TableCell className='text-center font-bold'>{totalNettoPrice.toFixed(2)} PLN</TableCell>
+						<TableCell colSpan={2}></TableCell>
 					</TableRow>
 				</TableFooter>
 			</Table>

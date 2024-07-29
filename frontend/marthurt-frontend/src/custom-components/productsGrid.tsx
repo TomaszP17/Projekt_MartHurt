@@ -26,10 +26,10 @@ const ProductsGrid: React.FC = () => {
 		priceFrom,
 		priceTo,
 		selectedSize,
-    selectedColors,
+		selectedColors,
 		selectedFinish,
 		setSelectedSize,
-    setSelectedColor,
+		setSelectedColor,
 		setSelectedFinish,
 		filtersApplied,
 		applyFilters,
@@ -46,7 +46,7 @@ const ProductsGrid: React.FC = () => {
 						priceFrom,
 						priceTo,
 						size: selectedSize.join(','),
-            color: selectedColors.join(','),
+						color: selectedColors.join(','),
 						finish: selectedFinish.join(','),
 						sortBy: sortBySplitted[0],
 						sortOrder: sortBySplitted[1],
@@ -69,7 +69,7 @@ const ProductsGrid: React.FC = () => {
 		applyFilters()
 	}
 
-  const handleRemoveColor = (color: string) => {
+	const handleRemoveColor = (color: string) => {
 		setSelectedColor(prevSelected => prevSelected.filter(s => s !== color))
 		applyFilters()
 	}
@@ -141,7 +141,7 @@ const ProductsGrid: React.FC = () => {
 							{finish} &times;
 						</Badge>
 					))}
-          {selectedColors.map(color => (
+					{selectedColors.map(color => (
 						<Badge
 							key={color}
 							className='bg-gray-100 text-gray-800 flex items-center hover:bg-gray-300 cursor-pointer'
@@ -176,7 +176,13 @@ const ProductsGrid: React.FC = () => {
 							<CardTitle>{lighting.supplierName}</CardTitle>
 							<CardDescription>{lighting.productName}</CardDescription>
 						</CardHeader>
-						<CardContent>{lighting.productId}</CardContent>
+						<CardContent>
+							<div className='flex flex-col'>
+								<p className='text-md font-semibold'>ID: {lighting.productId}</p>
+								<p className='text-md font-semibold'>Cena: {lighting.bruttoClientBuyPrice} zł</p>
+								<p className='text-md'>Dostępność: {lighting.dateAdded}</p>
+							</div>
+						</CardContent>
 						<div className='flex flex-col p-5 gap-x-3 md:flex-row gap-y-2'>
 							<Link className='w-full' href={`/lightings/${lighting.productId}`}>
 								<Button className='w-full' variant='outline'>
