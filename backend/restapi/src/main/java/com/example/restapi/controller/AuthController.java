@@ -88,7 +88,7 @@ public class AuthController {
      * @param registerRequest username (String), email (String), password (String)
      * @return information about register operation
      */
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequestDTO registerRequest){
         if(userRepository.existsByUsername(registerRequest.getUsername())){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("username is already taken");
@@ -120,6 +120,6 @@ public class AuthController {
         userAuthorityRepository.saveAll(userAuthorities);
 
         return ResponseEntity.ok("User registered successfully");
-    }
+    }*/
 
 }
