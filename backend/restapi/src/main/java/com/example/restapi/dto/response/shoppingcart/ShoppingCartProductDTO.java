@@ -1,11 +1,14 @@
 package com.example.restapi.dto.response.shoppingcart;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public record ShoppingCartProductDTO(
-        String imageUrl,
-        String productName,
-        BigDecimal clientBuyPriceBrutto,
-        int quantity
+
+        int shoppingCartId,
+        LocalDateTime createDate,
+        int employeeMyUserId,
+        List<ProductDTO> products
 ) {
 }
