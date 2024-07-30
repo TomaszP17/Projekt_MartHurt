@@ -140,6 +140,15 @@ public class LightingServiceImpl implements LightingService{
                 .toList();
     }
 
+    @Override
+    public List<LightingResponseDTO> getLastProducts() {
+        return lightingRepository
+                .findLastProducts()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
     private LightingResponseDTO convertToDTO(Lighting lighting) {
         return new LightingResponseDTO(
                 lighting.getProduct().getImages().stream().map(Image::getUrl).toList(),

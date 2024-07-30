@@ -19,4 +19,7 @@ public interface LightingRepository extends JpaRepository<Lighting, String> {
 
     @Query("SELECT l FROM Lighting l WHERE l.productId IN :productIds")
     List<Lighting> findByProductIds(@Param("productIds") List<String> productIds);
+
+    @Query("SELECT l FROM Lighting l JOIN l.product p WHERE p.productMarkings.id = 2")
+    List<Lighting> findLastProducts();
 }

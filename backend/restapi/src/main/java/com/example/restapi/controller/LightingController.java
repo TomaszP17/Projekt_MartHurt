@@ -76,4 +76,9 @@ public class LightingController {
     public ResponseEntity<List<LightingNamesResponseDTO>> getNewsLighting(){
         return ResponseEntity.ok(lightingService.getNewsLighting());
     }
+
+    @GetMapping("/last-products")
+    public ResponseEntity<List<LightingResponseDTO>> getLastProducts(){
+        return ResponseEntity.ok(lightingService.getLastProducts());
+    }
 }

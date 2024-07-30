@@ -19,4 +19,6 @@ public interface LightingService {
     List<LightingNamesResponseDTO> getNewsLighting();
 
     List<LightingFromShoppingCartResponseDTO> getLightingsFromShoppingCart(List<String> productsId);
+
+    List<LightingResponseDTO> getLastProducts();
 }

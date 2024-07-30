@@ -15,6 +15,9 @@ public class Employee {
     @Column(name = "myuser_id")
     private int myuserId;
 
+    @Column(name = "admin_name")
+    private String adminName;
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "myuser_id")
