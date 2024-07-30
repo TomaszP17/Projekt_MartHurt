@@ -64,6 +64,17 @@ const ProductsGrid: React.FC = () => {
 		fetchProducts()
 	}, [filtersApplied, sortBy])
 
+	const handleAddToCart = async (productId: string) => {
+		const shoppingCartId = 1 // Replace with actual cart ID logic
+		try {
+			await api.post(`http://localhost:8080/shopping-cart/${shoppingCartId}/products`, { productId, quantity: 1 })
+			alert('Product added to cart!')
+		} catch (err) {
+			console.error('Failed to add product to cart:', err)
+			alert('Failed to add product to cart.')
+		}
+	}
+
 	const handleRemoveSize = (size: string) => {
 		setSelectedSize(prevSelected => prevSelected.filter(s => s !== size))
 		applyFilters()
@@ -189,7 +200,9 @@ const ProductsGrid: React.FC = () => {
 									Szczegóły
 								</Button>
 							</Link>
-							<Button className='w-full'>Kup</Button>
+							<Button className='w-full' onClick={() => handleAddToCart(lighting.productId)}>
+								Kup
+							</Button>
 						</div>
 					</Card>
 				))}
