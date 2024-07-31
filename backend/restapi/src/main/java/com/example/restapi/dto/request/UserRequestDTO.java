@@ -14,6 +14,8 @@ import java.util.Set;
 public class UserRequestDTO {
     private String username;
     private String password;
+    private String email;
+    private String adminName;
     private boolean enabled;
     private Set<Integer> authoritiesId;
 }
