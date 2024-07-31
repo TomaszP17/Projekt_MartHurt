@@ -207,6 +207,4 @@ public class PDFGeneratorImpl implements IPDFGenerator {
         contentStream.addRect(0, 0, pageWidth, 30);
         contentStream.fill();
     }
-
-
 }
