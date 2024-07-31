@@ -180,7 +180,8 @@ public class LightingServiceImpl implements LightingService{
                 lighting.getProduct().getDescription(),
                 lighting.getProduct().getNettoClientBuyPrice(),
                 lighting.getProduct().getBruttoClientBuyPrice(),
-                BigDecimal.ONE
+                1,
+                1
         );
     }
 }

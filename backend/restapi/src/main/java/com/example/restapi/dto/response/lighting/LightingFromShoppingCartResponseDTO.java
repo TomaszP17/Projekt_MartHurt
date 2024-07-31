@@ -8,6 +8,7 @@ public record LightingFromShoppingCartResponseDTO(
         String description,
         BigDecimal nettoClientBuyPrice,
         BigDecimal bruttoClientBuyPrice,
-        BigDecimal quantity
+        double quantity,
+        double totalNettoPrice
 ) {
 }

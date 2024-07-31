@@ -1,12 +1,7 @@
 package com.example.restapi.controller;
 
-import com.example.restapi.dto.request.RegisterRequestDTO;
 import com.example.restapi.dto.request.SignInRequest;
 import com.example.restapi.dto.response.JwtResponse;
-import com.example.restapi.entity.users.Authority;
-import com.example.restapi.entity.users.MyUser;
-import com.example.restapi.entity.users.MyUserAuthority;
-import com.example.restapi.enums.RoleType;
 import com.example.restapi.helpers.util.JwtUtil;
 import com.example.restapi.repository.AuthorityRepository;
 import com.example.restapi.repository.MyUserAuthorityRepository;
@@ -25,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/auth")
