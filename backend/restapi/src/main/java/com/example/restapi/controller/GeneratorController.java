@@ -12,10 +12,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api-pdf")
+@RequestMapping("/pricing")
 public class GeneratorController {
 
     private final IPDFGenerator generator;
+
+
 
     public GeneratorController(IPDFGenerator generator) {
         this.generator = generator;
@@ -37,5 +39,10 @@ public class GeneratorController {
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(byteArrayInputStream));
+    }
+
+    @GetMapping("/{shoppingCartId}")
+    public ResponseEntity<?> getProductsFromShoppingCart(@PathVariable int shoppingCartId){
+        return ResponseEntity.ok(generator);
     }
 }
