@@ -81,4 +81,9 @@ public class LightingController {
     public ResponseEntity<List<LightingResponseDTO>> getLastProducts(){
         return ResponseEntity.ok(lightingService.getLastProducts());
     }
+
+    @GetMapping("/admin-dashboard-lightings")
+    public ResponseEntity<List<?>> getLightingAdminDashboard(){
+        return null;
+    }
 }
